@@ -116,6 +116,12 @@ newgrp gpio
 
 #### 8. Ejecutar el Dashboard
 ```bash
+# Opción recomendada: Usa el script automático
+chmod +x run_pi.sh
+./run_pi.sh
+
+# O ejecuta manualmente:
+source .venv/bin/activate
 python main.py
 ```
 
@@ -246,6 +252,7 @@ Este documento explica:
 ```
 blackbox-k/
 ├── main.py                     # ✅ Punto de entrada (MVC)
+├── run_pi.sh                   # 🖥️ Script ejecución Raspberry Pi
 ├── install.sh                  # 🛠️ Script instalación Linux/RPi
 ├── install.bat                 # 🛠️ Script instalación Windows
 ├── WIDGETLORDS_INSTALL.md      # 📋 Instrucciones para widgetlords
@@ -353,10 +360,38 @@ blackbox-k/
 - **Reinicia Raspberry Pi:** `sudo reboot`
 - **Test SPI:** `ls /dev/spi*` debe mostrar `/dev/spidev0.0` y `/dev/spidev0.1`
 
+#### "Expecting value: line 1 column 1 (char 0)" - Error JSON
+- El archivo `relay_config.json` está corrupto o vacío
+- **Solución:** Elimina el archivo y reinicia la aplicación:
+  ```bash
+  rm relay_config.json
+  python main.py  # Se creará automáticamente con configuración por defecto
+  ```
+
 #### Dashboard no aparece a pantalla completa
 - En Raspberry Pi, requiere X11/Wayland. En SSH, necesitas X11 forwarding
-- Ejecuta localmente en Raspberry Pi con HDMI conectado
+- **Ejecuta localmente en Raspberry Pi** con HDMI conectado
 - Verifica display: `echo $DISPLAY` (debe estar vacío o `:0`)
+
+**Para ejecutar en Raspberry Pi con pantalla:**
+```bash
+# Opción 1: Ejecuta directamente en la consola de Raspberry Pi (recomendado)
+# Conecta monitor/teclado a tu Raspberry Pi y ejecuta:
+source .venv/bin/activate
+python main.py
+
+# Opción 2: Desde SSH con X11 forwarding (requiere X server en tu PC)
+ssh -X pi@raspberry-pi-ip
+source .venv/bin/activate
+export DISPLAY=:0  # Fuerza display local
+python main.py
+
+# Opción 3: Usando VNC
+# Instala tightvncserver en Raspberry Pi
+sudo apt install tightvncserver
+# Configura VNC y conéctate desde tu PC
+# Luego ejecuta la aplicación en la sesión VNC
+```
 
 #### UI con lag o actualizaciones lentas
 - Aumenta el intervalo en `root.after(500, ...)` si necesitas menos actualizaciones
