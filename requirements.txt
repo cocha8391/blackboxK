@@ -1,11 +1,15 @@
 # Dependencias del proyecto BlackBox K
-# Instalar con: uv pip install -r requirements.txt
+# Instalar con: pip install -r requirements.txt
 
 # UI
 tkinter  # Incluido en Python estándar, pero se lista para referencia
 
-# Hardware (Raspberry Pi)
-# widgetlords>=1.0.0  # Descomenta en Raspberry Pi con módulos reales
+# Imágenes
+pillow>=10.0.0
+
+# Hardware (Raspberry Pi) - Disponible en https://github.com/widgetlords
+# widgetlords>=1.0.0  # Instalar desde: git clone https://github.com/widgetlords/widgetlords.git
+# La aplicación funciona en MODO SIMULACIÓN sin widgetlords
 
 # Desarrollo (opcional)
 # pylint

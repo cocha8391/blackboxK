@@ -54,7 +54,7 @@ blackbox-k/
 
 ```
 Si modo REAL (Raspberry Pi):
-    HARDWARE SPI → Lee valores reales de Mod8AI (4-20mA)
+    HARDWARE SPI → Lee valores reales de I-SPI-DIN-RTC-RS485 VPE-2701 (4-20mA)
 Si modo SIMULACION (Windows):
     random.randint(700, 3800) → Simula valores ADC
     ↓
@@ -114,7 +114,7 @@ Si modo SIMULACION (Windows):
     logger.info("Relay state: 0b0101") → Solo LOG
 ```
 
-**En Windows:** Los cambios de relés se registran en los logs, sin realizar cambios reales de hardware (porque no hay módulo Mod4KO conectado).
+**En Windows:** Los cambios de relés se registran en los logs, sin realizar cambios reales de hardware (porque no hay módulo PI-SPI-DIN-4KO VPE-2741 conectado).
 
 ---
 
@@ -206,7 +206,7 @@ print(sensor_data.get("P1"))  # → 23.5
 **Responsabilidad:** Interfaz con hardware SPI (real o simulado).
 
 **Modos de operación:**
-- **Raspberry Pi con hardware real**: Comunica con Módulo Mod8AI/Mod4KO vía SPI usando `widgetlords`
+- **Raspberry Pi con hardware real**: Comunica con Módulo I-SPI-DIN-RTC-RS485 VPE-2701 y PI-SPI-DIN-4KO VPE-2741 vía SPI usando `widgetlords`
 - **Windows / Simulación**: Genera valores ficticios (sensores aleatorios, relés virtuales, logs de estado)
 
 El modo se detecta automáticamente:

@@ -15,8 +15,8 @@ Un dashboard interactivo para monitoreo de presión, temperatura y control de re
 
 ### Raspberry Pi (Producción)
 - **Raspberry Pi 3** o superior (4, 4B, o 5)
-- **Módulo Mod8AI** (CAN/SPI 8-channel Analog Input) en chip select CE0
-- **Módulo Mod4KO** (4-channel Relay Output) en chip select CE1
+- **Módulo I-SPI-DIN-RTC-RS485 VPE-2701 Rev E** (8-channel Analog Input) en chip select CE0
+- **Módulo PI-SPI-DIN-4KO VPE-2741 Rev B** (4-channel Relay Output) en chip select CE1
 - **Interfaz SPI habilitada**
 - *(Opcional)* Pantalla táctil de 7" con resolución 800x480
 - *(Opcional)* Sensores 4-20mA para entrada analógica
@@ -84,8 +84,20 @@ source .venv/bin/activate
 
 #### 5. Instalar Dependencias
 ```bash
+# Linux/Raspberry Pi
+chmod +x install.sh
+./install.sh
+
+# Windows
+install.bat
+
+# O instalación manual:
 pip install --upgrade pip
-pip install widgetlords pillow
+pip install pillow
+
+# widgetlords NO está disponible en PyPI público
+# Para instalar widgetlords, contacta al equipo de SIELECTRA
+# o instala desde el repositorio interno de la empresa
 ```
 
 #### 6. Habilitar SPI
@@ -98,7 +110,7 @@ sudo raspi-config
 #### 7. Configurar Permisos GPIO
 ```bash
 sudo usermod -a -G spi,gpio $USER
-# Reinicia sesión o ejecuta:
+# Reinicia sesión o ejecuta:`
 newgrp gpio
 ```
 
@@ -234,6 +246,9 @@ Este documento explica:
 ```
 blackbox-k/
 ├── main.py                     # ✅ Punto de entrada (MVC)
+├── install.sh                  # 🛠️ Script instalación Linux/RPi
+├── install.bat                 # 🛠️ Script instalación Windows
+├── WIDGETLORDS_INSTALL.md      # 📋 Instrucciones para widgetlords
 ├── blackboxk_dashboard.py      # (DEPRECATED) Archivo original
 ├── relay_config.json           # Configuración (generado)
 ├── blackbox.log                # Log de ejecución (generado)
@@ -315,21 +330,26 @@ blackbox-k/
 ### Raspberry Pi (Hardware Real)
 
 #### "ModuleNotFoundError: No module named 'widgetlords'"
-```bash
-# Asegúrate de que estés en el entorno virtual activado
-source .venv/bin/activate
+`widgetlords` está disponible en el repositorio oficial **https://github.com/widgetlords**.
 
-# Reinstala la librería
-pip install widgetlords --force-reinstall
+**Soluciones:**
+1. **Instala desde el repositorio oficial:**
+   ```bash
+   git clone https://github.com/widgetlords/widgetlords.git
+   cd widgetlords
+   pip install .
+   ```
+2. **Instala desde releases** si hay wheels disponibles
+3. **Para desarrollo/testing**, ejecuta sin `widgetlords` - la aplicación automáticamente usará **modo SIMULACIÓN**
 
-# O usa pip3 si necesario
-pip3 install widgetlords
-```
+**La aplicación funciona perfectamente en modo simulación** para desarrollo y testing sin hardware real.
+
+📖 **Instrucciones detalladas para widgetlords**: Ver [WIDGETLORDS_INSTALL.md](WIDGETLORDS_INSTALL.md)
 
 #### "Error leyendo analógicos" o "Error escribiendo relés"
 - **Verifica SPI habilitado:** `sudo raspi-config` → Interfacing Options → SPI → Enable
 - **Verifica permisos:** `sudo usermod -a -G spi,gpio $USER` y luego reinicia sesión
-- **Verifica conexiones:** Asegúrate de que Mod8AI esté en CE0 y Mod4KO en CE1
+- **Verifica conexiones:** Asegúrate de que I-SPI-DIN-RTC-RS485 VPE-2701 esté en CE0 y PI-SPI-DIN-4KO VPE-2741 en CE1
 - **Reinicia Raspberry Pi:** `sudo reboot`
 - **Test SPI:** `ls /dev/spi*` debe mostrar `/dev/spidev0.0` y `/dev/spidev0.1`
 
@@ -354,7 +374,7 @@ pip3 install widgetlords
 - Verifica lógica en `"function"`: "Pressure Max", "Pressure Min", "Temperature Max", "Temperature Min"
 - Comprueba `"setpoint"` está en rango válido (entre min/max del sensor)
 - Verifica canal `"channel"` existe en sensores configurados
-- Revisa salidas físicas del módulo Mod4KO con multímetro
+- Revisa salidas físicas del módulo PI-SPI-DIN-4KO VPE-2741 con multímetro
 - Verifica que relés están alimentados correctamente
 
 ---
@@ -365,7 +385,7 @@ El proyecto requiere:
 
 - **tkinter** - GUI (incluido en Python estándar)
 - **pillow** - Procesamiento de imágenes (cuando sea necesario)
-- **widgetlords** - ⚠️ **Solo en Raspberry Pi** - Interfaz con módulos SPI Mod8AI/Mod4KO
+- **widgetlords** - ⚠️ **Solo en Raspberry Pi** - Interfaz con módulos SPI I-SPI-DIN-RTC-RS485 VPE-2701 y PI-SPI-DIN-4KO VPE-2741 (disponible en https://github.com/widgetlords)
 - **Python stdlib:** json, os, copy, logging
 
 ### Instalación de dependencias
@@ -377,7 +397,9 @@ pip install pillow
 
 **En Raspberry Pi (producción):**
 ```bash
-pip install pillow widgetlords
+pip install pillow
+# widgetlords: Contacta al equipo de SIELECTRA para instalación
+# La aplicación funciona en MODO SIMULACIÓN sin widgetlords
 ```
 
 ---
