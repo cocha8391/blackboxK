@@ -1,6 +1,8 @@
 # Black Box K Dashboard
 
-Un dashboard interactivo para monitoreo de presión, temperatura y control de relés en **Raspberry Pi**. Interfaz operada por pantalla táctil que proporciona visualización en tiempo real y control automático de actuadores basado en setpoints configurables.
+Un dashboard interactivo para monitoreo de presión, temperatura y control de relés en **Raspberry Pi** (y Windows). Interfaz operada por pantalla táctil que proporciona visualización en tiempo real y control automático de actuadores basado en setpoints configurables.
+
+**Nueva arquitectura MVC**: Código modular, fácil de entender y mantener. Ver [ARCHITECTURE.md](ARCHITECTURE.md) para detalles técnicos.
 
 ---
 
@@ -91,13 +93,29 @@ newgrp gpio
 
 ## 📖 Primeros Pasos
 
+### Estructura del Proyecto (MVC)
+
+```
+blackbox-k/
+├── main.py                  # 🎬 Inicia la aplicación aquí
+├── models/                  # 📊 Datos (config, sensores, hardware)
+├── controllers/             # 🧠 Lógica (lectura, evaluación, navegación)
+├── views/                   # 🎨 UI (Tkinter, diálogos)
+├── utils/                   # 🛠️ Utilidades (constantes, logger)
+├── relay_config.json        # Config de sensores y relés (generada)
+├── blackbox.log             # Log de ejecución (generada)
+└── ARCHITECTURE.md          # Documentación técnica detallada
+```
+
+Para entender **qué ocurre en cada parte del código**, lee [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ### Ejecutar el Dashboard
 ```bash
 # Asegúrate de que el entorno virtual esté activado
 source .venv/bin/activate
 
 # Ejecuta el dashboard
-python3 blackboxk_dashboard.py
+python main.py
 ```
 
 **En pantalla táctil (fullscreen):**
@@ -169,28 +187,59 @@ Al ejecutar por primera vez, se genera automáticamente un archivo `relay_config
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🧠 Entender el Código
+
+¿Cuáles son las **3 capas principales**? ¿Cómo **fluyen los datos**? ¿Qué ocurre cuando **lees un sensor**?
+
+Todas las respuestas en: **➡️ [ARCHITECTURE.md](ARCHITECTURE.md)**
+
+Este documento explica:
+- Estructura MVC (Modelos, Controladores, Vistas)
+- Flujo de datos (entrada → lógica → salida)
+- Cada módulo y su responsabilidad
+- Cómo debuggear usando logs
+- Cómo agregar nuevas funcionalidades
+
+---
+
+## 📁 Estructura del Proyecto Detallada
 
 ```
 blackbox-k/
-├── blackboxk_dashboard.py      # Aplicación principal
-├── relay_config.json           # Configuración (generado automáticamente)
+├── main.py                     # ✅ Punto de entrada (MVC)
+├── blackboxk_dashboard.py      # (DEPRECATED) Archivo original
+├── relay_config.json           # Configuración (generado)
+├── blackbox.log                # Log de ejecución (generado)
 ├── .venv/                      # Entorno virtual de Python
-├── requirements.txt            # (Opcional) Dependencias del proyecto
+├── requirements.txt            # Dependencias
 ├── README.md                   # Este archivo
+├── ARCHITECTURE.md             # Documentación técnica (¡LEE ESTO!)
+│
+├── models/                     # 📊 DATOS
+│   ├── config_manager.py      # Gestión de relay_config.json
+│   ├── sensor_data.py         # Estado de sensores
+│   └── hardware_manager.py    # Interfaz SPI
+│
+├── controllers/                # 🧠 LÓGICA
+│   ├── app_controller.py      # Orquestación
+│   ├── sensor_controller.py   # Lectura sensores
+│   ├── relay_controller.py    # Evaluación relés
+│   └── navigation.py          # Navegación
+│
+├── views/                      # 🎨 INTERFAZ
+│   ├── main_window.py
+│   ├── splash_page.py
+│   ├── sensor_page.py
+│   ├── relay_page.py
+│   └── config_dialogs.py
+│
+├── utils/                      # 🛠️ UTILIDADES
+│   ├── constants.py           # Constantes
+│   ├── logger.py              # Sistema de logging
+│   └── converters.py          # Conversión de datos
+│
 └── .git/                       # Repositorio Git
 ```
-
-**Componentes principales del código:**
-
-| Sección | Descripción |
-|---------|-------------|
-| **CONFIG** | Gestión de `relay_config.json` y configuración por defecto |
-| **HARDWARE** | Inicialización de módulos SPI (Mod8AI, Mod4KO) |
-| **GUI** | Interfaz Tkinter con 4 páginas (splash, presiones, temperaturas, relés) |
-| **ANALOG** | Lectura periódica de sensores 4-20mA en canales A0-A7 |
-| **RELAY LOGIC** | Evaluación automática de setpoints y control de relés |
-| **CONFIGURATION** | Diálogos para modificación en tiempo real de parámetros |
 
 ---
 
