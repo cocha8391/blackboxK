@@ -8,7 +8,7 @@ tkinter  # Incluido en Python estándar, pero se lista para referencia
 pillow>=10.0.0
 
 # Hardware (Raspberry Pi) - Disponible en https://github.com/widgetlords
-# widgetlords>=1.0.0  # Instalar desde: git clone https://github.com/widgetlords/widgetlords.git
+# widgetlords>=1.0.0  # Instalar desde: git clone https://github.com/widgetlords/libwidgetlords.git
 # La aplicación funciona en MODO SIMULACIÓN sin widgetlords
 
 # Desarrollo (opcional)

@@ -29,9 +29,9 @@ if python3 -c "import widgetlords" 2>/dev/null; then
     echo "✅ widgetlords encontrado - Modo HARDWARE REAL disponible"
 else
     echo "⚠️  widgetlords NO encontrado"
-    echo "   Intentando instalar desde https://github.com/widgetlords/widgetlords.git..."
+    echo "   Intentando instalar desde https://github.com/widgetlords/libwidgetlords.git..."
     if command -v git >/dev/null 2>&1; then
-        git clone https://github.com/widgetlords/widgetlords.git /tmp/widgetlords
+        git clone https://github.com/widgetlords/libwidgetlords.git /tmp/widgetlords
         cd /tmp/widgetlords
         pip install .
         cd -

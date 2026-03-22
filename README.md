@@ -337,13 +337,13 @@ blackbox-k/
 ### Raspberry Pi (Hardware Real)
 
 #### "ModuleNotFoundError: No module named 'widgetlords'"
-`widgetlords` está disponible en el repositorio oficial **https://github.com/widgetlords**.
+`widgetlords` está disponible en el repositorio oficial **https://github.com/widgetlords/libwidgetlords**.
 
 **Soluciones:**
 1. **Instala desde el repositorio oficial:**
    ```bash
-   git clone https://github.com/widgetlords/widgetlords.git
-   cd widgetlords
+   git clone https://github.com/widgetlords/libwidgetlords.git
+   cd libwidgetlords
    pip install .
    ```
 2. **Instala desde releases** si hay wheels disponibles

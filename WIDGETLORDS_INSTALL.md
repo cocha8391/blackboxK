@@ -1,14 +1,14 @@
 # Instrucciones para instalar widgetlords (Equipo SIELECTRA)
 
-`widgetlords` es una librería para controlar módulos SPI en Raspberry Pi. El repositorio oficial está en **https://github.com/widgetlords**.
+`widgetlords` es una librería para controlar módulos SPI en Raspberry Pi. El repositorio oficial está en **https://github.com/widgetlords/libwidgetlords**.
 
 ## Instalación desde repositorio oficial
 
 ### Opción 1: Desde Git (recomendado)
 ```bash
 # Clona el repositorio oficial de widgetlords
-git clone https://github.com/widgetlords/widgetlords.git
-cd widgetlords
+git clone https://github.com/widgetlords/libwidgetlords.git
+cd libwidgetlords
 
 # Instala en el entorno virtual de BlackBox K
 source ~/projects/blackboxK/.venv/bin/activate
@@ -26,7 +26,7 @@ pip install widgetlords-*.whl
 ### Opción 3: Instalación directa desde URL
 ```bash
 # Si hay un wheel hosteado
-pip install https://github.com/widgetlords/widgetlords/releases/download/[VERSION]/widgetlords-[VERSION]-py3-none-any.whl
+pip install https://github.com/widgetlords/libwidgetlords/releases/download/[VERSION]/libwidgetlords-[VERSION]-py3-none-any.whl
 ```
 
 ## Verificación de instalación
