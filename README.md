@@ -1,92 +1,110 @@
 # Black Box K Dashboard
 
-Un dashboard interactivo para monitoreo de presión, temperatura y control de relés en **Raspberry Pi** (y Windows). Interfaz operada por pantalla táctil que proporciona visualización en tiempo real y control automático de actuadores basado en setpoints configurables.
+Un dashboard interactivo para monitoreo de presión, temperatura y control de relés. **Soporta Windows (modo simulación) y Raspberry Pi** (con hardware real). Interfaz operada por pantalla táctil que proporciona visualización en tiempo real y control automático de actuadores basado en setpoints configurables.
 
-**Nueva arquitectura MVC**: Código modular, fácil de entender y mantener. Ver [ARCHITECTURE.md](ARCHITECTURE.md) para detalles técnicos.
+**Arquitectura MVC**: Código modular, mantenible y testeable. Ver [ARCHITECTURE.md](ARCHITECTURE.md) para detalles técnicos.
 
 ---
 
 ## 📋 Requisitos del Sistema
 
-### Hardware
+### Windows (Desarrollo y Testing)
+- **Python 3.7** o superior
+- **pip** (gestor de paquetes estándar)
+- Ejecuta en **modo SIMULACIÓN** (sin hardware real)
+
+### Raspberry Pi (Producción)
 - **Raspberry Pi 3** o superior (4, 4B, o 5)
 - **Módulo Mod8AI** (CAN/SPI 8-channel Analog Input) en chip select CE0
 - **Módulo Mod4KO** (4-channel Relay Output) en chip select CE1
-- **Interfaz SPI habilitada** en Raspberry Pi
+- **Interfaz SPI habilitada**
 - *(Opcional)* Pantalla táctil de 7" con resolución 800x480
 - *(Opcional)* Sensores 4-20mA para entrada analógica
 
-### Software
-- **Raspberry Pi OS** (Bullseye, Bookworm o similar)
-- **Python 3.7** o superior
-- **uv** (Package manager moderno)
+### Software (Común)
+- **Python 3.8** o superior
 - **Git** (para clonar el repositorio)
 
 ---
 
 ## 🚀 Instalación Rápida
 
-### 1. Actualizar el Sistema
-```bash
-sudo apt update && sudo apt upgrade -y
-```
+### ⚡ WINDOWS (Desarrollo)
 
-### 2. Instalar Dependencias del Sistema
-```bash
-sudo apt install -y python3 python3-pip python3-tk git
-```
-
-### 3. Instalar `uv`
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-O si prefieres usar pip:
-```bash
-pip3 install uv
-```
-
-Verifica la instalación:
-```bash
-uv --version
-```
-
-### 4. Clonar el Repositorio
+#### 1. Clonar el Repositorio
 ```bash
 git clone https://github.com/sielectra/blackbox-k.git
 cd blackbox-k
 ```
 
-### 5. Crear Entorno Virtual con `uv`
-```bash
-uv venv
-source .venv/bin/activate  # En systems Unix/Linux/macOS
-# o en PowerShell de Windows:
-# .venv\Scripts\Activate.ps1
+#### 2. Crear Entorno Virtual
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 ```
 
-### 6. Instalar Dependencias del Proyecto
-```bash
-uv pip install tkinter widgetlords
+#### 3. Instalar Dependencias
+```powershell
+pip install --upgrade pip
+pip install pillow
 ```
 
-O si tienes un archivo `pyproject.toml` o `requirements.txt`:
-```bash
-uv pip install -r requirements.txt
+#### 4. Ejecutar el Dashboard
+```powershell
+python main.py
 ```
 
-### 7. Habilitar SPI (En Raspberry Pi)
+✅ **La aplicación se ejecutará en modo SIMULACIÓN** (valores de sensores generados aleatoriamente, relés virtuales)
+
+---
+
+### 🍓 RASPBERRY PI (Producción)
+
+#### 1. Actualizar el Sistema
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+#### 2. Instalar Dependencias del Sistema
+```bash
+sudo apt install -y python3 python3-pip python3-tk git
+```
+
+#### 3. Clonar el Repositorio
+```bash
+git clone https://github.com/sielectra/blackbox-k.git
+cd blackbox-k
+```
+
+#### 4. Crear Entorno Virtual
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### 5. Instalar Dependencias
+```bash
+pip install --upgrade pip
+pip install widgetlords pillow
+```
+
+#### 6. Habilitar SPI
 ```bash
 sudo raspi-config
 # Navega a: Interfacing Options → SPI → Enable
 # Reinicia cuando termine
 ```
 
-### 8. Configurar Permisos GPIO
+#### 7. Configurar Permisos GPIO
 ```bash
 sudo usermod -a -G spi,gpio $USER
 # Reinicia sesión o ejecuta:
 newgrp gpio
+```
+
+#### 8. Ejecutar el Dashboard
+```bash
+python main.py
 ```
 
 ---
@@ -110,6 +128,19 @@ blackbox-k/
 Para entender **qué ocurre en cada parte del código**, lee [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### Ejecutar el Dashboard
+
+#### En Windows (Modo Simulación)
+```powershell
+# Asegúrate de que el entorno virtual esté activado
+.venv\Scripts\Activate.ps1
+
+# Ejecuta el dashboard
+python main.py
+```
+
+Una ventana de **800x480** se abrirá con valores de sensores simulados. Perfecta para **desarrollo y testing**.
+
+#### En Raspberry Pi (Hardware Real)
 ```bash
 # Asegúrate de que el entorno virtual esté activado
 source .venv/bin/activate
@@ -118,16 +149,12 @@ source .venv/bin/activate
 python main.py
 ```
 
-**En pantalla táctil (fullscreen):**
-- El dashboard se ejecutará a pantalla completa
+Conecta una pantalla táctil de 7" (800x480) a tu Raspberry Pi:
+- El dashboard se ejecutará a **pantalla completa**
 - Toca la pantalla de splash para comenzar
 - Navega entre las 4 páginas: Presiones, Temperaturas, Relés y Configuración
-
-**En desarrollo (sin pantalla táctil):**
-```bash
-python3 blackboxk_dashboard.py
-# Se abrirá una ventana de 800x480 que puedes redimensionar
-```
+- Lee sensores 4-20mA en tiempo real
+- Controla relés según setpoints configurables
 
 ---
 
@@ -266,40 +293,69 @@ blackbox-k/
 
 ## 🐛 Troubleshooting
 
-### "ModuleNotFoundError: No module named 'widgetlords'"
+### Windows (Modo Simulación)
+
+#### Dashboard abre pero dice "Modo SIMULACIÓN"
+✅ **Esto es correcto.** Windows no tiene hardware SPI real (Mod8AI/Mod4KO). Los sensores generan valores aleatorios para testing.
+
+#### "ModuleNotFoundError: No module named 'widgetlords'"
+✅ **Esto es normal en Windows.** No se necesita `widgetlords` (es solo para Raspberry Pi con hardware real). La aplicación automáticamente usa modo simulación.
+
+#### La ventana no aparece
+- Verifica que Python está en PATH: `python --version`
+- Verifica que tkinter está instalado: `python -m tkinter` (debe abrir ventana)
+- Asegúrate de activar el virtual environment: `.venv\Scripts\Activate.ps1`
+
+#### Valores de sensores siempre iguales o no cambian
+- Los valores se actualizan cada 500ms automáticamente
+- Verifica que el mainloop está corriendo (ventana debe estar responsiva)
+
+---
+
+### Raspberry Pi (Hardware Real)
+
+#### "ModuleNotFoundError: No module named 'widgetlords'"
 ```bash
 # Asegúrate de que estés en el entorno virtual activado
 source .venv/bin/activate
 
 # Reinstala la librería
-uv pip install widgetlords --force-reinstall
+pip install widgetlords --force-reinstall
+
+# O usa pip3 si necesario
+pip3 install widgetlords
 ```
 
-### "Error leyendo analógicos" o "Error escribiendo relés"
+#### "Error leyendo analógicos" o "Error escribiendo relés"
 - **Verifica SPI habilitado:** `sudo raspi-config` → Interfacing Options → SPI → Enable
-- **Verifica permisos:** `sudo usermod -a -G spi,gpio $USER`
+- **Verifica permisos:** `sudo usermod -a -G spi,gpio $USER` y luego reinicia sesión
 - **Verifica conexiones:** Asegúrate de que Mod8AI esté en CE0 y Mod4KO en CE1
 - **Reinicia Raspberry Pi:** `sudo reboot`
+- **Test SPI:** `ls /dev/spi*` debe mostrar `/dev/spidev0.0` y `/dev/spidev0.1`
 
-### Dashboard no aparece a pantalla completa
+#### Dashboard no aparece a pantalla completa
 - En Raspberry Pi, requiere X11/Wayland. En SSH, necesitas X11 forwarding
 - Ejecuta localmente en Raspberry Pi con HDMI conectado
+- Verifica display: `echo $DISPLAY` (debe estar vacío o `:0`)
 
-### UI con lag o actualizaciones lentas
+#### UI con lag o actualizaciones lentas
 - Aumenta el intervalo en `root.after(500, ...)` si necesitas menos actualizaciones
 - Reduce a 200-250ms si necesitas más responsividad
 - Verifica carga del CPU: `top` o `htop`
+- Verifica si hay procesos de background usando recursos
 
-### Sensores muestran valores erráticos
-- Verifica calibración 4-20mA en librerías (valores 745 y 3723 en función `read_analog()`)
+#### Sensores muestran valores erráticos
+- Verifica calibración 4-20mA en converters (valores 745 y 3723 para conversión)
 - Comprueba conexiones analógicas y ruido electromagnético
 - Aumenta el rango min/max en configuración para estabilidad
+- Verifica que sensores tengan 4-20mA correctamente alimentados
 
-### Relés no se activan
-- Verifica logica en `"function"`: "Pressure Max", "Pressure Min", "Temperature Max", "Temperature Min"
-- Comprueba `"setpoint"` está en rango válido
-- Verifica canal `"channel"` existe en sensores
-- Revisa salidas físicas del módulo Mod4KO
+#### Relés no se activan
+- Verifica lógica en `"function"`: "Pressure Max", "Pressure Min", "Temperature Max", "Temperature Min"
+- Comprueba `"setpoint"` está en rango válido (entre min/max del sensor)
+- Verifica canal `"channel"` existe en sensores configurados
+- Revisa salidas físicas del módulo Mod4KO con multímetro
+- Verifica que relés están alimentados correctamente
 
 ---
 
@@ -308,12 +364,20 @@ uv pip install widgetlords --force-reinstall
 El proyecto requiere:
 
 - **tkinter** - GUI (incluido en Python estándar)
-- **widgetlords** - Interfaz con módulos SPI Mod8AI/Mod4KO
-- **Python stdlib:** json, os, copy
+- **pillow** - Procesamiento de imágenes (cuando sea necesario)
+- **widgetlords** - ⚠️ **Solo en Raspberry Pi** - Interfaz con módulos SPI Mod8AI/Mod4KO
+- **Python stdlib:** json, os, copy, logging
 
-Para instalar todas las dependencias de una vez:
+### Instalación de dependencias
+
+**En Windows (desarrollo):**
+```powershell
+pip install pillow
+```
+
+**En Raspberry Pi (producción):**
 ```bash
-uv pip install tkinter widgetlords
+pip install pillow widgetlords
 ```
 
 ---

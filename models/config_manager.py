@@ -21,6 +21,7 @@ class ConfigManager:
 
     def __init__(self):
         """Inicializa el ConfigManager cargando la configuración existente."""
+        self.config = copy.deepcopy(DEFAULT_CONFIG)  # Inicializar primero
         self.config = self._load_config()
         logger.info("ConfigManager", "Configuración cargada exitosamente")
 

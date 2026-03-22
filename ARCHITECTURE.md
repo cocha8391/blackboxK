@@ -53,13 +53,14 @@ blackbox-k/
 ### 📥 ENTRADA (Lectura de Sensores)
 
 ```
-HARDWARE SPI (Raspberry Pi) / SIMULACION (Windows)
+Si modo REAL (Raspberry Pi):
+    HARDWARE SPI → Lee valores reales de Mod8AI (4-20mA)
+Si modo SIMULACION (Windows):
+    random.randint(700, 3800) → Simula valores ADC
     ↓
-HardwareManager.read_analog_channel()
+HardwareManager.read_analog_channel() → Retorna 0-4095
     ↓
-[ADC Raw Value: 0-4095]
-    ↓
-converters.adc_to_uservalue()
+converters.adc_to_uservalue() → Convierte a unidades usuario
     ↓
 [Valor en unidades de usuario: 23.5 PSI, 45.2 °C]
     ↓
@@ -67,6 +68,8 @@ SensorData.update(key, value)
     ↓
 SensorData._sensor_values["P1"] = 23.5
 ```
+
+**En Windows:** Los valores de sensores son aleatorios (simulación), perfecto para desarrollo sin hardware real.
 
 **Quién ejecuta esto:**
 - `SensorController.read_all_sensors()` (cada 500ms)
@@ -105,10 +108,13 @@ RelayState = 0b0101  (relés 0 y 2 activados)
     ↓
 HardwareManager.write_relay_state(0b0101)
     ↓
-relay_module.write(0b0101)
-    ↓
-HARDWARE SPI (Raspberry Pi) / LOG (Windows)
+Si modo REAL (Raspberry Pi):
+    relay_module.write(0b0101) → HARDWARE SPI
+Si modo SIMULACION (Windows):
+    logger.info("Relay state: 0b0101") → Solo LOG
 ```
+
+**En Windows:** Los cambios de relés se registran en los logs, sin realizar cambios reales de hardware (porque no hay módulo Mod4KO conectado).
 
 ---
 
@@ -197,18 +203,30 @@ print(sensor_data.get("P1"))  # → 23.5
 
 ### HardwareManager (`models/hardware_manager.py`)
 
-**Responsabilidad:** Interfaz abstracta con hardware SPI.
-- En Raspberry Pi: Usa widgetlords para comunicación real
-- En Windows: Simula valores ficticios
+**Responsabilidad:** Interfaz con hardware SPI (real o simulado).
+
+**Modos de operación:**
+- **Raspberry Pi con hardware real**: Comunica con Módulo Mod8AI/Mod4KO vía SPI usando `widgetlords`
+- **Windows / Simulación**: Genera valores ficticios (sensores aleatorios, relés virtuales, logs de estado)
+
+El modo se detecta automáticamente:
+- Si importar `widgetlords` falla → modo SIMULACIÓN
+- Si importar `widgetlords` ok y está en Raspberry Pi → modo REAL
 
 **Métodos importantes:**
-- `read_analog_channel(channel)` - Lee ADC (0-7)
-- `write_relay_state(byte)` - Escribe relés
+- `read_analog_channel(channel: int) -> int` - Lee ADC valor 0-4095 (simulado o real)
+- `write_relay_state(byte: int)` - Escribe estado de 4 relés (b0-b3)
+- `is_simulation() -> bool` - Retorna True si está en modo SIMULACIÓN
 
-**Ejemplo de uso:**
+**Ejemplo de uso (automático en AppController):**
 ```python
-hw = HardwareManager(use_simulation=True)  # Windows
-value = hw.read_analog_channel(0)  # → 2000 (simulado)
+hw = HardwareManager()  # Detecta automáticamente modo
+if hw.is_simulation():
+    print("Modo SIMULACIÓN - desarrollo en Windows")
+else:
+    print("Modo REAL - hardware Raspberry Pi")
+
+value = hw.read_analog_channel(0)  # 0-4095
 hw.write_relay_state(0b0101)  # Activa relés 0 y 2
 ```
 
