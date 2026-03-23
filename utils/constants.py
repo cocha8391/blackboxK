@@ -6,7 +6,7 @@ Centraliza valores que se usan en múltiples módulos.
 # ===== INTERFAZ =====
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 480
-FULLSCREEN_MODE = False  # Cambiar a True para Raspberry Pi
+FULLSCREEN_MODE = True  # Cambiar a True para Raspberry Pi
 
 # ===== COLORES =====
 COLOR_PRIMARY = "#007acc"      # Azul principal
