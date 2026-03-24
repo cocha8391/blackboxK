@@ -91,6 +91,7 @@ class BlackBoxK:
         self.current_config_type = None  # 'input' o 'relay'
         self.current_config_key = None   # key para input, index para relay
         self.current_config_subtype = None  # 'pressure', 'temperature' para inputs
+        self.config_item_frame = None  # Referencia al frame de config_item
 
         # ===== PÁGINAS =====
         self._setup_pages()
@@ -121,6 +122,7 @@ class BlackBoxK:
             self.window.container,
             self.window.page_width,
             self.window.page_height,
+            self.app,
         )
         self.window.add_frame("pressure", pressure_frame, PAGE_PRESSURE)
 
@@ -129,14 +131,27 @@ class BlackBoxK:
             self.window.container,
             self.window.page_width,
             self.window.page_height,
+            self.app,
         )
         self.window.add_frame("temperature", temperature_frame, PAGE_TEMPERATURE)
 
         # Página 3: Relés
+        def on_relay_toggle(relay_index):
+            print(f"DEBUG MAIN: Toggle solicitado para relé {relay_index}")
+            logger.info("BlackBoxK", f"Toggle manual solicitado para relé {relay_index}")
+            result = self.app.relay_controller.toggle_manual_relay(relay_index)
+            print(f"DEBUG MAIN: Toggle result: {result}")
+            logger.info("BlackBoxK", f"Toggle manual result: {result}")
+            self._update_relay_indicators()
+            print(f"DEBUG MAIN: UI actualizada")
+            logger.info("BlackBoxK", f"UI actualizada después del toggle")
+        
         relay_frame, self.relay_indicators = create_relay_page(
             self.window.container,
             self.window.page_width,
             self.window.page_height,
+            self.app,
+            on_relay_toggle,
         )
         self.window.add_frame("relay", relay_frame, PAGE_RELAY)
 
@@ -202,9 +217,13 @@ class BlackBoxK:
             self._on_save_config_item,
             self._on_back_to_config_menu,
         )
+        self.config_item_frame = config_item_frame  # Guardar referencia
         self.window.add_frame("config_item", config_item_frame, PAGE_CONFIG_ITEM)
 
         logger.debug("BlackBoxK", "Páginas configuradas")
+        
+        # Actualizar nombres de sensores desde configuración
+        self._update_sensor_names()
 
     def _setup_events(self) -> None:
         """Configura eventos de entrada (toques/swipes)."""
@@ -220,34 +239,40 @@ class BlackBoxK:
         """Maneja presión de pantalla."""
         self.touch_start_x = event.x_root
 
-        # Si toca esquina inferior derecha, inicia timer para configuración
+        # Si toca esquina inferior derecha (20% de la esquina), inicia timer para configuración
         if (
-            event.x > (self.window.page_width * 0.88)
-            and event.y > (self.window.page_height * 0.79)
+            event.x > (self.window.page_width * 0.8)
+            and event.y > (self.window.page_height * 0.8)
         ):
+            logger.info("BlackBoxK", f"Long-press iniciado en ({event.x}, {event.y})")
             self.hold_timer = self.window.after(
                 HOLD_CONFIG_TIME, self._open_config_menu
             )
+        else:
+            # Cancelar timer si se toca otro lugar
+            if self.hold_timer:
+                self.window.root.after_cancel(self.hold_timer)
+                self.hold_timer = None
 
     def _on_input_config(self):
         """Navega a configuración de inputs."""
-        self.window.navigate_to_page(PAGE_INPUT_CONFIG)
+        self._navigate_to_page_safe(PAGE_INPUT_CONFIG)
 
     def _on_relay_config(self):
         """Navega a configuración de relés."""
-        self.window.navigate_to_page(PAGE_RELAY_CONFIG)
+        self._navigate_to_page_safe(PAGE_RELAY_CONFIG)
 
     def _on_connectivity(self):
         """Navega a conectividad."""
-        self.window.navigate_to_page(PAGE_CONNECTIVITY)
+        self._navigate_to_page_safe(PAGE_CONNECTIVITY)
 
     def _on_info(self):
         """Navega a información."""
-        self.window.navigate_to_page(PAGE_INFO)
+        self._navigate_to_page_safe(PAGE_INFO)
 
     def _on_config_close(self):
         """Cierra el menú de configuración (vuelve a relay page)."""
-        self.window.navigate_to_page(PAGE_RELAY)
+        self._navigate_to_page_safe(PAGE_RELAY)
 
     def _on_select_input(self, config_type, key):
         """Selecciona input para configurar."""
@@ -258,13 +283,23 @@ class BlackBoxK:
             self.current_config_subtype = 'pressure'
         elif key in TEMPERATURE_KEYS:
             self.current_config_subtype = 'temperature'
-        self.window.navigate_to_page(PAGE_CONFIG_ITEM)
+        
+        # Actualizar los campos de la página de config_item
+        if self.config_item_frame and hasattr(self.config_item_frame, 'update_fields'):
+            self.config_item_frame.update_fields()
+        
+        self._navigate_to_page_safe(PAGE_CONFIG_ITEM)
 
     def _on_select_relay(self, config_type, index):
         """Selecciona relay para configurar."""
         self.current_config_type = config_type
         self.current_config_key = index
-        self.window.navigate_to_page(PAGE_CONFIG_ITEM)
+        
+        # Actualizar los campos de la página de config_item
+        if self.config_item_frame and hasattr(self.config_item_frame, 'update_fields'):
+            self.config_item_frame.update_fields()
+        
+        self._navigate_to_page_safe(PAGE_CONFIG_ITEM)
 
     def _on_save_config_item(self, name, min_val, max_val, function, channel, setpoint):
         """Guarda la configuración del item."""
@@ -278,17 +313,25 @@ class BlackBoxK:
             setpoint = float(setpoint) if setpoint else 0
             self.app.update_relay_config(relay_key, name, function, channel, setpoint)
             logger.info("BlackBoxK", f"Relay {relay_key} actualizado")
+            
+            # Actualizar indicadores de relés después de cambiar configuración
+            self._update_relay_indicators()
+        
+        # Actualizar nombres en las tarjetas de sensores
+        self._update_sensor_names()
+        
         # Volver al menú
-        self.window.navigate_to_page(PAGE_CONFIG_MENU)
+        self._navigate_to_page_safe(PAGE_CONFIG_MENU)
 
     def _on_back_to_config_menu(self):
         """Vuelve al menú de configuración."""
-        self.window.navigate_to_page(PAGE_CONFIG_MENU)
+        self._navigate_to_page_safe(PAGE_CONFIG_MENU)
 
     def _on_touch_end(self, event) -> None:
         """Maneja liberación de pantalla."""
         # Cancelar timer si estaba activo
         if self.hold_timer:
+            logger.info("BlackBoxK", "Long-press cancelado (toque liberado)")
             self.window.root.after_cancel(self.hold_timer)
             self.hold_timer = None
 
@@ -297,27 +340,81 @@ class BlackBoxK:
         # Página splash: cualquier toque va a página 1
         if self.nav.get_current_page() == PAGE_SPLASH:
             self.nav.on_splash_touched()
-            self.window.navigate_to_page(self.nav.get_current_page())
+            self._navigate_to_page_safe(self.nav.get_current_page())
             logger.info("BlackBoxK", "Splash tocado → Página 1")
             return
 
         # Solo permitir swipe en páginas principales (0-3: splash, pressure, temperature, relay)
         current_page = self.nav.get_current_page()
-        if current_page < PAGE_CONFIG_MENU:
+        
+        # SOLO permitir swipes en las 4 páginas principales
+        if current_page in (PAGE_SPLASH, PAGE_PRESSURE, PAGE_TEMPERATURE, PAGE_RELAY):
             # Swipe izquierda: siguiente página
             if delta < -80:
                 if self.nav.on_swipe_left():
-                    self.window.navigate_to_page(self.nav.get_current_page())
+                    # Asegurarse de que no navegamos a configuración con swipe
+                    if self.nav.get_current_page() < PAGE_CONFIG_MENU:
+                        self._navigate_to_page_safe(self.nav.get_current_page())
+                    else:
+                        # Si de alguna forma llegó a config, revertir
+                        self.nav.on_swipe_right()
 
             # Swipe derecha: página anterior
             elif delta > 80:
                 if self.nav.on_swipe_right():
-                    self.window.navigate_to_page(self.nav.get_current_page())
+                    self._navigate_to_page_safe(self.nav.get_current_page())
 
     def _open_config_menu(self) -> None:
         """Abre el menú de configuración."""
-        logger.info("BlackBoxK", "Abriendo menú de configuración")
-        self.window.navigate_to_page(PAGE_CONFIG_MENU)
+        logger.info("BlackBoxK", "Long-press completado - Abriendo menú de configuración")
+        self._navigate_to_page_safe(PAGE_CONFIG_MENU)
+
+    def _navigate_to_page_safe(self, page_index: int) -> None:
+        """
+        Navega a una página y sincroniza el NavigationController.
+        
+        Args:
+            page_index: Índice de página
+        """
+        self.window.navigate_to_page(page_index)
+        self.nav.current_page = page_index
+        logger.debug("BlackBoxK", f"Navegado a página {page_index}")
+
+    def _update_sensor_names(self) -> None:
+        """Actualiza los nombres de las tarjetas de sensores desde la configuración."""
+        # Actualizar tarjetas de presión
+        for i, card in enumerate(self.pressure_cards):
+            key = f"P{i+1}"
+            cfg = self.app.config.get_input(key)
+            name = cfg.get("name", key)
+            card.update_title(name)
+        
+        # Actualizar tarjetas de temperatura
+        for i, card in enumerate(self.temp_cards):
+            key = f"T{i+1}"
+            cfg = self.app.config.get_input(key)
+            name = cfg.get("name", key)
+            card.update_title(name)
+        
+        # Actualizar indicadores de relés
+        self._update_relay_indicators()
+
+    def _update_relay_indicators(self) -> None:
+        """Actualiza los indicadores de relés con nombres y modo manual."""
+        for i, indicator in enumerate(self.relay_indicators):
+            relay_key = f"relay{i+1}"
+            cfg = self.app.config.get_relay(relay_key)
+            name = cfg.get("name", f"Relay {i+1}")
+            
+            # Verificar si está en modo manual
+            is_manual = self.app.relay_controller.is_relay_manual(i)
+            indicator.set_manual_mode(is_manual)
+            
+            # Actualizar nombre (manteniendo el estado ON/OFF)
+            if self.app.is_relay_active(i):
+                indicator.set_active(name)
+            else:
+                indicator.set_inactive(name)
 
     def _show_input_selection_dialog(self) -> None:
         """Muestra diálogo para seleccionar qué input configurar."""
@@ -461,6 +558,10 @@ class BlackBoxK:
             relay_name = cfg.get("name", f"Relay {i+1}")
 
             is_active = self.app.is_relay_active(i)
+            is_manual = self.app.relay_controller.is_relay_manual(i)
+            
+            # Actualizar modo manual
+            self.relay_indicators[i].set_manual_mode(is_manual)
 
             if is_active:
                 self.relay_indicators[i].set_active(relay_name)

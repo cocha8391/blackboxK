@@ -47,9 +47,9 @@ class AppController:
         )
 
         self.relay_controller = RelayController(
+            self.config,
             self.hardware,
             self.sensor_data,
-            self.config.get_relays(),
         )
 
         logger.info("AppController", "Aplicación inicializada correctamente")

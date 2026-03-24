@@ -60,7 +60,8 @@ RELAY_FUNCTIONS = [
     "Pressure Max",
     "Pressure Min",
     "Temperature Max",
-    "Temperature Min"
+    "Temperature Min",
+    "Control Manual"
 ]
 
 # ===== CONFIGURACIÓN POR DEFECTO =====

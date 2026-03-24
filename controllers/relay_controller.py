@@ -16,21 +16,24 @@ class RelayController:
     Evalúa la lógica de cada relé (comparación con setpoint) y escribe salidas.
     """
 
-    def __init__(self, hardware_manager: HardwareManager, sensor_data: SensorData, config: dict):
+    def __init__(self, config_manager, hardware_manager: HardwareManager, sensor_data: SensorData):
         """
         Inicializa el controlador de relés.
 
         Args:
+            config_manager: Gestor de configuración
             hardware_manager: Gestor del hardware (escritura SPI)
             sensor_data: Almacén de estado de sensores
-            config: Diccionario de configuración (relays)
         """
+        self.config_manager = config_manager
         self.hardware = hardware_manager
         self.sensor_data = sensor_data
-        self.config_relays = config
 
         # Estado interno de relés (para saber cuál cambió)
         self.relay_state = 0
+        
+        # Estado manual de relés (True = control manual activado)
+        self.manual_states = [False] * NUM_RELAYS
 
         logger.info("RelayController", "Inicializado")
 
@@ -79,6 +82,7 @@ class RelayController:
         - "Pressure Min": Activar si sensor <= setpoint
         - "Temperature Max": Activar si sensor >= setpoint
         - "Temperature Min": Activar si sensor <= setpoint
+        - "Control Manual": Usar estado manual
 
         Args:
             relay_key: Identificador del relé (relay1, relay2, etc)
@@ -87,17 +91,24 @@ class RelayController:
             bool: True si debe estar activado, False si inactivo
         """
         try:
-            relay_config = self.config_relays.get(relay_key, {})
+            relay_config = self.config_manager.get_relay(relay_key)
 
             # Obtener parámetros de configuración
+            function = relay_config.get("function", "")
+
+            # Si es control manual, usar estado manual
+            if function == "Control Manual":
+                relay_index = RELAY_KEYS.index(relay_key)
+                return self.manual_states[relay_index]
+
+            # Obtener otros parámetros para lógica automática
             channel = relay_config.get("channel", "")
             setpoint = relay_config.get("setpoint", 0)
-            function = relay_config.get("function", "")
 
             # Obtener valor actual del sensor
             sensor_value = self.sensor_data.get(channel)
 
-            # Evaluar lógica
+            # Evaluar lógica automática
             if "Max" in function and sensor_value >= setpoint:
                 return True
 
@@ -136,3 +147,50 @@ class RelayController:
         if relay_index < 0 or relay_index >= 4:
             return False
         return bool((self.relay_state >> relay_index) & 1)
+
+    def is_relay_manual(self, relay_index: int) -> bool:
+        """
+        Verifica si un relé está configurado como control manual.
+
+        Args:
+            relay_index: Índice del relé (0-3)
+
+        Returns:
+            bool: True si está en modo manual
+        """
+        if relay_index < 0 or relay_index >= NUM_RELAYS:
+            return False
+        
+        relay_key = RELAY_KEYS[relay_index]
+        relay_config = self.config_manager.get_relay(relay_key)
+        return relay_config.get("function", "") == "Control Manual"
+
+    def toggle_manual_relay(self, relay_index: int) -> bool:
+        """
+        Cambia el estado de un relé en modo manual.
+
+        Args:
+            relay_index: Índice del relé (0-3)
+
+        Returns:
+            bool: True si se cambió exitosamente, False si no es manual o índice inválido
+        """
+        if relay_index < 0 or relay_index >= NUM_RELAYS:
+            return False
+        
+        if not self.is_relay_manual(relay_index):
+            return False
+        
+        # Cambiar estado manual
+        old_state = self.manual_states[relay_index]
+        self.manual_states[relay_index] = not self.manual_states[relay_index]
+        
+        logger.info(
+            "RelayController",
+            f"Relé {relay_index + 1} manual toggled: {old_state} → {self.manual_states[relay_index]}"
+        )
+        
+        # Re-evaluar y escribir estado
+        self.evaluate_and_write()
+        
+        return True

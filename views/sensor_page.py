@@ -66,7 +66,7 @@ class SensorCard:
         self.frame.place(**kwargs)
 
 
-def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple:
+def create_pressure_page(container: tk.Canvas, width: int, height: int, app_controller) -> tuple:
     """
     Crea la página de sensores de presión.
 
@@ -74,6 +74,7 @@ def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple
         container: Canvas contenedor
         width: Ancho de la página
         height: Alto de la página
+        app_controller: Controlador de la aplicación para acceder a configuración
 
     Returns:
         tuple: (frame, lista_de_cards)
@@ -104,7 +105,10 @@ def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple
     start_y = margin_y
 
     for i in range(NUM_PRESSURE_SENSORS):
-        card = SensorCard(frame, f"P{i+1}", PRESSURE_UNIT)
+        key = f"P{i+1}"
+        cfg = app_controller.config.get_input(key)
+        title = cfg.get("name", key)
+        card = SensorCard(frame, title, PRESSURE_UNIT)
         x = start_x + (i % cols) * (card_width + margin_x)
         y = start_y + (i // cols) * (card_height + margin_y)
         card.place(x=x, y=y)
@@ -113,7 +117,7 @@ def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple
     return frame, cards
 
 
-def create_temperature_page(container: tk.Canvas, width: int, height: int) -> tuple:
+def create_temperature_page(container: tk.Canvas, width: int, height: int, app_controller) -> tuple:
     """
     Crea la página de sensores de temperatura.
 
@@ -121,6 +125,7 @@ def create_temperature_page(container: tk.Canvas, width: int, height: int) -> tu
         container: Canvas contenedor
         width: Ancho de la página
         height: Alto de la página
+        app_controller: Controlador de la aplicación para acceder a configuración
 
     Returns:
         tuple: (frame, lista_de_cards)
@@ -151,7 +156,10 @@ def create_temperature_page(container: tk.Canvas, width: int, height: int) -> tu
     start_y = margin_y
 
     for i in range(NUM_TEMPERATURE_SENSORS):
-        card = SensorCard(frame, f"T{i+1}", TEMPERATURE_UNIT)
+        key = f"T{i+1}"
+        cfg = app_controller.config.get_input(key)
+        title = cfg.get("name", key)
+        card = SensorCard(frame, title, TEMPERATURE_UNIT)
         x = start_x + (i % cols) * (card_width + margin_x)
         y = start_y + (i // cols) * (card_height + margin_y)
         card.place(x=x, y=y)

@@ -1,70 +1,70 @@
 {
     "inputs": {
         "P1": {
-            "name": "Pressure 1",
+            "name": "Caldera 01",
             "min": 0.0,
-            "max": 232.0
+            "max": 100.0
         },
         "P2": {
-            "name": "Pressure 2",
-            "min": 0,
-            "max": 232
+            "name": "caldera 02",
+            "min": 0.0,
+            "max": 150.0
         },
         "P3": {
-            "name": "Pressure 3",
-            "min": 0,
-            "max": 232
+            "name": "Salida principal",
+            "min": 0.0,
+            "max": 250.0
         },
         "P4": {
-            "name": "Pressure 4",
-            "min": 0,
-            "max": 232
+            "name": "Entrada caldera",
+            "min": 0.0,
+            "max": 100.0
         },
         "T1": {
-            "name": "Temperature 1",
-            "min": -10,
-            "max": 100
+            "name": "Temperatura de retorno",
+            "min": -10.0,
+            "max": 300.0
         },
         "T2": {
-            "name": "Temperature 2",
-            "min": -10,
-            "max": 100
+            "name": "Temperatura 45",
+            "min": -10.0,
+            "max": 100.0
         },
         "T3": {
-            "name": "Temperature 3",
-            "min": -10,
-            "max": 100
+            "name": "Temperatura 3",
+            "min": -10.0,
+            "max": 100.0
         },
         "T4": {
-            "name": "Temperature 4",
-            "min": -10,
-            "max": 100
+            "name": "Temperatura 466",
+            "min": -10.0,
+            "max": 100.0
         }
     },
     "relays": {
         "relay1": {
-            "name": "Relay 1",
-            "function": "Pressure Max",
+            "name": "Disparo emergencia",
+            "function": "Control Manual",
             "channel": "P1",
-            "setpoint": 0
+            "setpoint": 35.0
         },
         "relay2": {
-            "name": "Relay 2",
+            "name": "Valvula 01",
             "function": "Pressure Max",
             "channel": "P2",
-            "setpoint": 0
+            "setpoint": 12.0
         },
         "relay3": {
-            "name": "Relay 3",
+            "name": "Relé 3",
             "function": "Pressure Max",
             "channel": "P3",
-            "setpoint": 0
+            "setpoint": 0.0
         },
         "relay4": {
-            "name": "Relay 4",
-            "function": "Pressure Max",
-            "channel": "P4",
-            "setpoint": 0
+            "name": "Resistencia de descongelado",
+            "function": "Control Manual",
+            "channel": "T1",
+            "setpoint": 65.0
         }
     }
 }
