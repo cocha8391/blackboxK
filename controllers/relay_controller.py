@@ -182,12 +182,11 @@ class RelayController:
             return False
         
         # Cambiar estado manual
-        old_state = self.manual_states[relay_index]
         self.manual_states[relay_index] = not self.manual_states[relay_index]
         
         logger.info(
             "RelayController",
-            f"Relé {relay_index + 1} manual toggled: {old_state} → {self.manual_states[relay_index]}"
+            f"Relé {relay_index + 1} manual toggled: {self.manual_states[relay_index]}"
         )
         
         # Re-evaluar y escribir estado

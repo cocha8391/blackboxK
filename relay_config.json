@@ -50,7 +50,7 @@
         },
         "relay2": {
             "name": "Valvula 01",
-            "function": "Pressure Max",
+            "function": "Control Manual",
             "channel": "P2",
             "setpoint": 12.0
         },
@@ -62,7 +62,7 @@
         },
         "relay4": {
             "name": "Resistencia de descongelado",
-            "function": "Control Manual",
+            "function": "Pressure Max",
             "channel": "T1",
             "setpoint": 65.0
         }

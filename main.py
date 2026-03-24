@@ -137,14 +137,8 @@ class BlackBoxK:
 
         # Página 3: Relés
         def on_relay_toggle(relay_index):
-            print(f"DEBUG MAIN: Toggle solicitado para relé {relay_index}")
-            logger.info("BlackBoxK", f"Toggle manual solicitado para relé {relay_index}")
-            result = self.app.relay_controller.toggle_manual_relay(relay_index)
-            print(f"DEBUG MAIN: Toggle result: {result}")
-            logger.info("BlackBoxK", f"Toggle manual result: {result}")
+            self.app.relay_controller.toggle_manual_relay(relay_index)
             self._update_relay_indicators()
-            print(f"DEBUG MAIN: UI actualizada")
-            logger.info("BlackBoxK", f"UI actualizada después del toggle")
         
         relay_frame, self.relay_indicators = create_relay_page(
             self.window.container,

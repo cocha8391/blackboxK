@@ -38,12 +38,6 @@ class RelayIndicator:
         self.on_toggle_callback = on_toggle_callback
         self.is_manual = False
 
-        # Frame principal con binding de click
-        if on_toggle_callback:
-            self.frame.bind("<Button-1>", lambda e: self._on_click())
-            self.label.bind("<Button-1>", lambda e: self._on_click())
-            self.manual_label.bind("<Button-1>", lambda e: self._on_click())
-
         self.label = tk.Label(
             self.frame,
             text=f"{relay_name} OFF",
@@ -63,15 +57,17 @@ class RelayIndicator:
         )
         self.manual_label.pack()
 
+        # Frame principal con binding de click
+        if on_toggle_callback:
+            self.frame.bind("<Button-1>", lambda e: self._on_click())
+            self.label.bind("<Button-1>", lambda e: self._on_click())
+            self.manual_label.bind("<Button-1>", lambda e: self._on_click())
+
         self._bg = COLOR_BG_MAIN
 
     def _on_click(self):
         """Maneja el click en el indicador."""
-        from utils.logger import get_logger
-        logger = get_logger()
-        logger.info("RelayIndicator", f"Click en relé {self.relay_index}, is_manual={self.is_manual}")
         if self.is_manual and self.on_toggle_callback:
-            logger.info("RelayIndicator", f"Llamando callback para relé {self.relay_index}")
             self.on_toggle_callback(self.relay_index)
 
     def set_manual_mode(self, is_manual: bool):
