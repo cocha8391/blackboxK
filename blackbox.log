@@ -4073,3 +4073,490 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-03-22 16:47:06] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
 [2026-03-22 16:47:06] [INFO] [BlackBoxK] - [main] Aplicación interrumpida por usuario
 [2026-03-22 16:47:06] [INFO] [BlackBoxK] - [main] Aplicación terminada
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK]    BLACK BOX K DASHBOARD - Iniciando...
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [AppController] Inicializando aplicación...
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [ConfigManager] Config cargada desde relay_config.json
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [ConfigManager] Configuración cargada exitosamente
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [SensorData] Sistema de sensores inicializado
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [HardwareManager] Modo SIMULACIÓN - Sin hardware real
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [SensorController] Inicializado
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [RelayController] Inicializado
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [AppController] Aplicación inicializada correctamente
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [NavigationController] Página inicial: 0
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [MainWindow] Ventana creada (800x480)
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK] Configurando páginas...
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'splash' añadido a página 0
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'pressure' añadido a página 1
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'temperature' añadido a página 2
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay' añadido a página 3
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [BlackBoxK] Páginas configuradas
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [BlackBoxK] Eventos configurados
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [RelayController] Cambio de estado: 0x00 → 0x0f
+[2026-03-22 19:10:50] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK] Aplicación inicializada correctamente
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [BlackBoxK] Iniciando mainloop...
+[2026-03-22 19:10:50] [INFO] [BlackBoxK] - [MainWindow] Iniciando mainloop
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:51] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:52] [INFO] [BlackBoxK] - [NavigationController] Splash tocado → Página 1
+[2026-03-22 19:10:52] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 1
+[2026-03-22 19:10:52] [INFO] [BlackBoxK] - [BlackBoxK] Splash tocado → Página 1
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:53] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:10:54] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:10:54] [INFO] [BlackBoxK] - [main] Aplicación terminada
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK]    BLACK BOX K DASHBOARD - Iniciando...
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [AppController] Inicializando aplicación...
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [ConfigManager] Config cargada desde relay_config.json
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [ConfigManager] Configuración cargada exitosamente
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [SensorData] Sistema de sensores inicializado
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [HardwareManager] Modo SIMULACIÓN - Sin hardware real
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [SensorController] Inicializado
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [RelayController] Inicializado
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [AppController] Aplicación inicializada correctamente
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [NavigationController] Página inicial: 0
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [MainWindow] Ventana creada (800x480)
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK] Configurando páginas...
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'splash' añadido a página 0
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'pressure' añadido a página 1
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'temperature' añadido a página 2
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay' añadido a página 3
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [BlackBoxK] Páginas configuradas
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [BlackBoxK] Eventos configurados
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [RelayController] Cambio de estado: 0x00 → 0x0f
+[2026-03-22 19:11:00] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK] Aplicación inicializada correctamente
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [BlackBoxK] Iniciando mainloop...
+[2026-03-22 19:11:00] [INFO] [BlackBoxK] - [MainWindow] Iniciando mainloop
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:11:01] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-22 19:11:02] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-22 19:11:02] [INFO] [BlackBoxK] - [main] Aplicación terminada
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK]    BLACK BOX K DASHBOARD - Iniciando...
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [AppController] Inicializando aplicación...
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [ConfigManager] Config cargada desde relay_config.json
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [ConfigManager] Configuración cargada exitosamente
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [SensorData] Sistema de sensores inicializado
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [HardwareManager] Modo SIMULACIÓN - Sin hardware real
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [SensorController] Inicializado
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [RelayController] Inicializado
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [AppController] Aplicación inicializada correctamente
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [NavigationController] Página inicial: 0
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [MainWindow] Ventana creada (800x480)
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK] Configurando páginas...
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'splash' añadido a página 0
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'pressure' añadido a página 1
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'temperature' añadido a página 2
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay' añadido a página 3
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [BlackBoxK] Páginas configuradas
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [BlackBoxK] Eventos configurados
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [RelayController] Cambio de estado: 0x00 → 0x0f
+[2026-03-23 20:29:05] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK] Aplicación inicializada correctamente
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [BlackBoxK] Iniciando mainloop...
+[2026-03-23 20:29:05] [INFO] [BlackBoxK] - [MainWindow] Iniciando mainloop
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:06] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:07] [INFO] [BlackBoxK] - [NavigationController] Splash tocado → Página 1
+[2026-03-23 20:29:07] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 1
+[2026-03-23 20:29:07] [INFO] [BlackBoxK] - [BlackBoxK] Splash tocado → Página 1
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:08] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:09] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:10] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [NavigationController] Swipe izq → Página 2
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 2
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:11] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [NavigationController] Swipe der → Página 1
+[2026-03-23 20:29:12] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 1
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:13] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:14] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [NavigationController] Swipe izq → Página 2
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 2
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:15] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [NavigationController] Swipe der → Página 1
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [MainWindow] Navegando a página 1
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:16] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:17] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:18] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:19] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P1 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P2 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P3 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] P4 = 97.7
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T1 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T2 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T3 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [SensorData] T4 = 36.3
+[2026-03-23 20:29:20] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:21] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
+[2026-03-23 20:29:21] [INFO] [BlackBoxK] - [main] Aplicación interrumpida por usuario
+[2026-03-23 20:29:21] [INFO] [BlackBoxK] - [main] Aplicación terminada

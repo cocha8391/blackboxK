@@ -66,17 +66,19 @@ class SensorCard:
         self.frame.place(**kwargs)
 
 
-def create_pressure_page(container: tk.Canvas) -> tuple:
+def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple:
     """
     Crea la página de sensores de presión.
 
     Args:
         container: Canvas contenedor
+        width: Ancho de la pantalla
+        height: Alto de la pantalla
 
     Returns:
         tuple: (frame, lista_de_cards)
     """
-    frame = tk.Frame(container, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=COLOR_BG_PAGE)
+    frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_PAGE)
     frame.pack_propagate(False)
 
     # Título
@@ -101,17 +103,19 @@ def create_pressure_page(container: tk.Canvas) -> tuple:
     return frame, cards
 
 
-def create_temperature_page(container: tk.Canvas) -> tuple:
+def create_temperature_page(container: tk.Canvas, width: int, height: int) -> tuple:
     """
     Crea la página de sensores de temperatura.
 
     Args:
         container: Canvas contenedor
+        width: Ancho de la pantalla
+        height: Alto de la pantalla
 
     Returns:
         tuple: (frame, lista_de_cards)
     """
-    frame = tk.Frame(container, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=COLOR_BG_PAGE)
+    frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_PAGE)
     frame.pack_propagate(False)
 
     # Título

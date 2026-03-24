@@ -11,17 +11,19 @@ from utils.constants import (
 )
 
 
-def create_splash_page(container: tk.Canvas) -> tk.Frame:
+def create_splash_page(container: tk.Canvas, width: int, height: int) -> tk.Frame:
     """
     Crea la página splash (bienvenida).
 
     Args:
         container: Canvas contenedor
+        width: Ancho de la pantalla
+        height: Alto de la pantalla
 
     Returns:
         tk.Frame: Frame de la página splash
     """
-    frame = tk.Frame(container, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=COLOR_BG_MAIN)
+    frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_MAIN)
     frame.pack_propagate(False)
 
     # Título principal

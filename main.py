@@ -90,19 +90,35 @@ class BlackBoxK:
         logger.info("BlackBoxK", "Configurando páginas...")
 
         # Página 0: Splash
-        splash_frame = create_splash_page(self.window.container)
+        splash_frame = create_splash_page(
+            self.window.container,
+            self.window.window_width,
+            self.window.window_height,
+        )
         self.window.add_frame("splash", splash_frame, PAGE_SPLASH)
 
         # Página 1: Presión
-        pressure_frame, self.pressure_cards = create_pressure_page(self.window.container)
+        pressure_frame, self.pressure_cards = create_pressure_page(
+            self.window.container,
+            self.window.window_width,
+            self.window.window_height,
+        )
         self.window.add_frame("pressure", pressure_frame, PAGE_PRESSURE)
 
         # Página 2: Temperatura
-        temperature_frame, self.temp_cards = create_temperature_page(self.window.container)
+        temperature_frame, self.temp_cards = create_temperature_page(
+            self.window.container,
+            self.window.window_width,
+            self.window.window_height,
+        )
         self.window.add_frame("temperature", temperature_frame, PAGE_TEMPERATURE)
 
         # Página 3: Relés
-        relay_frame, self.relay_indicators = create_relay_page(self.window.container)
+        relay_frame, self.relay_indicators = create_relay_page(
+            self.window.container,
+            self.window.window_width,
+            self.window.window_height,
+        )
         self.window.add_frame("relay", relay_frame, PAGE_RELAY)
 
         logger.debug("BlackBoxK", "Páginas configuradas")

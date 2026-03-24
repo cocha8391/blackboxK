@@ -23,18 +23,22 @@ class MainWindow:
         # Configurar ventana
         if FULLSCREEN_MODE:
             self.root.attributes("-fullscreen", True)
+            self.window_width = self.root.winfo_screenwidth()
+            self.window_height = self.root.winfo_screenheight()
         else:
-            self.root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}")
+            self.window_width = WINDOW_WIDTH
+            self.window_height = WINDOW_HEIGHT
+            self.root.geometry(f"{self.window_width}x{self.window_height}")
 
         # Canvas principal con desplazamiento
         self.container = tk.Canvas(
             self.root,
-            width=WINDOW_WIDTH,
-            height=WINDOW_HEIGHT,
+            width=self.window_width,
+            height=self.window_height,
             highlightthickness=0,
         )
         self.container.pack(fill="both", expand=True)
-        self.container.configure(scrollregion=(0, 0, WINDOW_WIDTH * TOTAL_PAGES, WINDOW_HEIGHT))
+        self.container.configure(scrollregion=(0, 0, self.window_width * TOTAL_PAGES, self.window_height))
 
         logger.info("MainWindow", f"Ventana creada ({WINDOW_WIDTH}x{WINDOW_HEIGHT})")
 

@@ -65,17 +65,19 @@ class RelayIndicator:
         self.frame.place(**kwargs)
 
 
-def create_relay_page(container: tk.Canvas) -> tuple:
+def create_relay_page(container: tk.Canvas, width: int, height: int) -> tuple:
     """
     Crea la página de relés.
 
     Args:
         container: Canvas contenedor
+        width: Ancho de la pantalla
+        height: Alto de la pantalla
 
     Returns:
         tuple: (frame, lista_de_indicadores)
     """
-    frame = tk.Frame(container, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg=COLOR_BG_PAGE)
+    frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_PAGE)
     frame.pack_propagate(False)
 
     # Título
