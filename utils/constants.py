@@ -24,7 +24,7 @@ TEXT_COLOR_RELAY_ON = "green"
 TEXT_COLOR_RELAY_OFF = "gray"
 
 # ===== FRECUENCIAS (ms) =====
-SENSOR_READ_INTERVAL = 500     # Lectura sensores cada 500ms
+SENSOR_READ_INTERVAL = 2000     # Lectura sensores cada 2000ms (2 segundos)
 RELAY_EVAL_INTERVAL = 500      # Evaluación relés cada 500ms
 HOLD_CONFIG_TIME = 15000       # 15 segundos para abrir configuración
 
@@ -66,6 +66,7 @@ RELAY_FUNCTIONS = [
 
 # ===== CONFIGURACIÓN POR DEFECTO =====
 DEFAULT_CONFIG = {
+    "export_dir": "exports",  # Directorio para exportar datos CSV
     "inputs": {
         "P1": {"name": "Pressure 1", "min": 0, "max": 232},
         "P2": {"name": "Pressure 2", "min": 0, "max": 232},

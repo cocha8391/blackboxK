@@ -21,6 +21,7 @@ USO:
 """
 
 import tkinter as tk
+from tkinter import messagebox
 from controllers.app_controller import AppController
 from controllers.navigation import NavigationController
 from views.main_window import MainWindow
@@ -199,6 +200,7 @@ class BlackBoxK:
             self.window.page_width,
             self.window.page_height,
             self._on_back_to_config_menu,
+            self._on_export_data,
         )
         self.window.add_frame("info", info_frame, PAGE_INFO)
 
@@ -320,6 +322,15 @@ class BlackBoxK:
     def _on_back_to_config_menu(self):
         """Vuelve al menú de configuración."""
         self._navigate_to_page_safe(PAGE_CONFIG_MENU)
+
+    def _on_export_data(self):
+        """Exporta los datos actuales."""
+        status = self.app.get_export_status()
+        if status.get('ready'):
+            self.app.export_data()
+            messagebox.showinfo("Exportación", f"Datos exportados correctamente a {status.get('path')}")
+        else:
+            messagebox.showwarning("Exportación", f"No se pudo exportar: USB/directorio no disponible ({status.get('path')})")
 
     def _on_touch_end(self, event) -> None:
         """Maneja liberación de pantalla."""

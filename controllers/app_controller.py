@@ -6,8 +6,10 @@ Coordina modelos, controladores y vistas.
 from models.config_manager import ConfigManager
 from models.hardware_manager import HardwareManager
 from models.sensor_data import SensorData
+from models.data_logger import DataLogger
 from controllers.sensor_controller import SensorController
 from controllers.relay_controller import RelayController
+from web_server import WebServer
 from utils.constants import SENSOR_READ_INTERVAL, RELAY_EVAL_INTERVAL
 from utils.logger import get_logger
 
@@ -37,7 +39,12 @@ class AppController:
         # Capa de datos
         self.config = ConfigManager()
         self.sensor_data = SensorData()
+        self.data_logger = DataLogger(self.config.get_export_dir())
         self.hardware = HardwareManager(use_simulation=use_hardware_simulation)
+
+        # Servidor web
+        self.web_server = WebServer(self)
+        self.web_server.start()
 
         # Capa de lógica
         self.sensor_controller = SensorController(
@@ -60,6 +67,14 @@ class AppController:
         Se ejecuta periódicamente desde la vista.
         """
         self.sensor_controller.read_all_sensors()
+
+        # Loggear datos de sensores
+        all_sensors = self.sensor_data.get_all()
+        for key, value in all_sensors.items():
+            self.data_logger.log_sensor_data(key, value)
+
+        # Verificar si hay que exportar datos mensuales
+        self.data_logger.check_and_export_monthly()
 
     def evaluate_relays(self) -> int:
         """
@@ -98,6 +113,24 @@ class AppController:
     def get_config(self) -> ConfigManager:
         """Obtiene el gestor de configuración."""
         return self.config
+
+    def export_data(self) -> bool:
+        """Fuerza la exportación de datos actuales."
+
+        Returns:
+            bool: True si la exportación se ejecutó.
+        """
+        if not self.data_logger.is_export_ready():
+            return False
+        self.data_logger.force_export()
+        return True
+
+    def get_export_status(self) -> dict:
+        """Retorna estado de exportación: USB/connectado y ruta."""
+        return {
+            "path": self.data_logger.export_dir,
+            "ready": self.data_logger.is_export_ready(),
+        }
 
     def update_input_config(
         self, key: str, name: str, min_val: float, max_val: float

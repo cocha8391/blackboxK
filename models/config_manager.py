@@ -106,6 +106,10 @@ class ConfigManager:
         """Retorna el diccionario de relés."""
         return self.config.get("relays", {})
 
+    def get_export_dir(self) -> str:
+        """Retorna el directorio de exportación."""
+        return self.config.get("export_dir", "exports")
+
     def get_input(self, key: str) -> dict:
         """
         Obtiene la configuración de un sensor específico.

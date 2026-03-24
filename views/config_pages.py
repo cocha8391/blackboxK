@@ -428,7 +428,7 @@ def create_config_item_page(container: tk.Canvas, width: int, height: int, black
     return frame
 
 
-def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> tk.Frame:
+def create_info_page(container: tk.Canvas, width: int, height: int, on_back, on_export) -> tk.Frame:
     """
     Crea la página de información.
 
@@ -437,6 +437,7 @@ def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> 
         width: Ancho de la página
         height: Alto de la página
         on_back: Callback para volver
+        on_export: Callback para exportar datos
 
     Returns:
         tk.Frame: Frame de la página
@@ -469,6 +470,14 @@ def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> 
         bg=COLOR_BG_PAGE,
         justify="left",
     ).pack(pady=50)
+
+    # Botón export
+    tk.Button(
+        frame,
+        text="Export Data",
+        font=("Helvetica", 14),
+        command=on_export,
+    ).pack(pady=10)
 
     # Botón back
     tk.Button(
