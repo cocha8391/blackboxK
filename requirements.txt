@@ -1,9 +1,6 @@
 # Dependencias del proyecto BlackBox K
 # Instalar con: pip install -r requirements.txt
 
-# UI
-tkinter  # Incluido en Python estándar, pero se lista para referencia
-
 # Web server
 flask>=2.0.0
 flask-socketio>=5.0.0
