@@ -47,6 +47,156 @@ LOGIN_TEMPLATE = """
 </html>
 """
 
+PRESSURE_TEMPLATE = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BlackBox K - Presión</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #e9eef3; margin: 0; padding: 20px; }
+        .header { background: #007acc; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .nav-buttons { margin-top:12px; }
+        .nav-buttons a { color:white; margin-right:8px; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+        .nav-buttons a:hover { background: rgba(255,255,255,0.2); }
+        .title { text-align: center; font-size: 24px; font-weight: bold; color: #007acc; margin-bottom: 20px; }
+        .sensor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
+        .sensor-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+        .sensor-value { font-size: 2em; font-weight: bold; color: #007acc; }
+        .sensor-label { color: #666; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
+        <div class="nav-buttons" style="margin-top:12px;">
+            <a href="/pressure">Presión</a>
+            <a href="/temperature">Temperatura</a>
+            <a href="/relay">Relés</a>
+            <a href="/config">Configuración</a>
+            <a href="/history">Historial CSV</a>
+            <a href="/logout">Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="title">PRESSURE</div>
+    <div class="sensor-grid" id="sensor-grid">
+        <!-- Los sensores se cargarán dinámicamente -->
+    </div>
+
+    <script>
+        const socket = io();
+        const sensorGrid = document.getElementById('sensor-grid');
+
+        // Crear tarjetas de sensores iniciales
+        const sensors = {{ inputs | tojson }};
+        Object.entries(sensors).forEach(([sensor, cfg]) => {
+            if (sensor.startsWith('P')) {
+                const card = document.createElement('div');
+                card.className = 'sensor-card';
+                card.id = sensor;
+                card.innerHTML = `
+                    <div class="sensor-label">${cfg.name || sensor}</div>
+                    <div class="sensor-value">--</div>
+                    <div>PSI</div>
+                `;
+                sensorGrid.appendChild(card);
+            }
+        });
+
+        // Actualizar datos en tiempo real
+        socket.on('sensor_update', function(data) {
+            for (const sensor in data) {
+                if (sensor.startsWith('P')) {
+                    const card = document.getElementById(sensor);
+                    if (card) {
+                        const valueDiv = card.querySelector('.sensor-value');
+                        valueDiv.textContent = Number(data[sensor]).toFixed(1);
+                    }
+                }
+            }
+        });
+
+        setInterval(() => socket.emit('request_status'), 2000);
+    </script>
+</body>
+</html>
+"""
+
+TEMPERATURE_TEMPLATE = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BlackBox K - Temperatura</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #e9eef3; margin: 0; padding: 20px; }
+        .header { background: #007acc; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .nav-buttons { margin-top:12px; }
+        .nav-buttons a { color:white; margin-right:8px; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+        .nav-buttons a:hover { background: rgba(255,255,255,0.2); }
+        .title { text-align: center; font-size: 24px; font-weight: bold; color: #007acc; margin-bottom: 20px; }
+        .sensor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
+        .sensor-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+        .sensor-value { font-size: 2em; font-weight: bold; color: #007acc; }
+        .sensor-label { color: #666; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
+        <div class="nav-buttons" style="margin-top:12px;">
+            <a href="/pressure">Presión</a>
+            <a href="/temperature">Temperatura</a>
+            <a href="/relay">Relés</a>
+            <a href="/config">Configuración</a>
+            <a href="/history">Historial CSV</a>
+            <a href="/logout">Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="title">TEMPERATURE</div>
+    <div class="sensor-grid" id="sensor-grid">
+        <!-- Los sensores se cargarán dinámicamente -->
+    </div>
+
+    <script>
+        const socket = io();
+        const sensorGrid = document.getElementById('sensor-grid');
+
+        // Crear tarjetas de sensores iniciales
+        const sensors = {{ inputs | tojson }};
+        Object.entries(sensors).forEach(([sensor, cfg]) => {
+            if (sensor.startsWith('T')) {
+                const card = document.createElement('div');
+                card.className = 'sensor-card';
+                card.id = sensor;
+                card.innerHTML = `
+                    <div class="sensor-label">${cfg.name || sensor}</div>
+                    <div class="sensor-value">--</div>
+                    <div>°C</div>
+                `;
+                sensorGrid.appendChild(card);
+            }
+        });
+
+        // Actualizar datos en tiempo real
+        socket.on('sensor_update', function(data) {
+            for (const sensor in data) {
+                if (sensor.startsWith('T')) {
+                    const card = document.getElementById(sensor);
+                    if (card) {
+                        const valueDiv = card.querySelector('.sensor-value');
+                        valueDiv.textContent = Number(data[sensor]).toFixed(1);
+                    }
+                }
+            }
+        });
+
+        setInterval(() => socket.emit('request_status'), 2000);
+    </script>
+</body>
+</html>
+"""
+
 DASHBOARD_TEMPLATE = """
 <!DOCTYPE html>
 <html>
@@ -68,7 +218,8 @@ DASHBOARD_TEMPLATE = """
     <div class="header">
         <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
         <div class="nav-buttons" style="margin-top:12px;">
-            <a href="/dashboard" style="color:white; margin-right:8px;">Sensores</a>
+            <a href="/pressure" style="color:white; margin-right:8px;">Presión</a>
+            <a href="/temperature" style="color:white; margin-right:8px;">Temperatura</a>
             <a href="/relay" style="color:white; margin-right:8px;">Relés</a>
             <a href="/config" style="color:white; margin-right:8px;">Configuración</a>
             <a href="/history" style="color:white; margin-right:8px;">Historial CSV</a>
@@ -245,7 +396,6 @@ DASHBOARD_TEMPLATE = """
                 sensorChart.data.datasets[0].data = newData;
                 sensorChart.update();
             }
-        });
 """
 
 
@@ -285,7 +435,7 @@ class WebServer:
         @self.app.route('/')
         def index():
             if 'username' in session:
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('pressure'))
             return redirect(url_for('login'))
 
         @self.app.route('/login', methods=['GET', 'POST'])
@@ -296,18 +446,29 @@ class WebServer:
 
                 if username in USERS and check_password_hash(USERS[username], password):
                     session['username'] = username
-                    return redirect(url_for('dashboard'))
+                    return redirect(url_for('pressure'))
                 else:
                     return render_template_string(LOGIN_TEMPLATE, error="Usuario o contraseña incorrectos")
 
             return render_template_string(LOGIN_TEMPLATE)
 
         @self.app.route('/dashboard')
-        def dashboard():
+        def dashboard_redirect():
+            return redirect(url_for('pressure'))
+
+        @self.app.route('/pressure')
+        def pressure():
             if 'username' not in session:
                 return redirect(url_for('login'))
             inputs = self.app_controller.get_config().get_inputs()
-            return render_template_string(DASHBOARD_TEMPLATE, inputs=inputs)
+            return render_template_string(PRESSURE_TEMPLATE, inputs=inputs)
+
+        @self.app.route('/temperature')
+        def temperature():
+            if 'username' not in session:
+                return redirect(url_for('login'))
+            inputs = self.app_controller.get_config().get_inputs()
+            return render_template_string(TEMPERATURE_TEMPLATE, inputs=inputs)
 
         @self.app.route('/relay')
         def relay():
@@ -329,18 +490,44 @@ class WebServer:
                 <head>
                     <title>Relés</title>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+                    <style>
+                        body { font-family: Arial, sans-serif; background: #e9eef3; margin: 0; padding: 20px; }
+                        .header { background: #007acc; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+                        .nav-buttons { margin-top:12px; }
+                        .nav-buttons a { color:white; margin-right:8px; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+                        .nav-buttons a:hover { background: rgba(255,255,255,0.2); }
+                        .title { text-align: center; font-size: 24px; font-weight: bold; color: #007acc; margin-bottom: 20px; }
+                        .relay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+                        .relay-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer; transition: background 0.3s; }
+                        .relay-card.active { background: #c8f7c5; }
+                        .relay-card.inactive { background: white; }
+                        .relay-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+                        .relay-status { font-size: 16px; }
+                        .relay-manual { font-size: 10px; color: #007acc; margin-top: 5px; }
+                    </style>
                 </head>
                 <body>
-                <h1>Relés</h1>
-                <ul id="relay-list">
+                <div class="header">
+                    <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
+                    <div class="nav-buttons" style="margin-top:12px;">
+                        <a href="/pressure">Presión</a>
+                        <a href="/temperature">Temperatura</a>
+                        <a href="/relay">Relés</a>
+                        <a href="/config">Configuración</a>
+                        <a href="/history">Historial CSV</a>
+                        <a href="/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+                <div class="title">RELAYS</div>
+                <div class="relay-grid" id="relay-grid">
                     {% for rel in relays %}
-                        <li>
-                            <strong>{{ rel.name }}</strong> ({{ rel.key }}) - <span id="relay-status-{{ loop.index0 }}">{{ 'ON' if rel.active else 'OFF' }}</span>
-                            <button onclick="toggleRelay({{ loop.index0 }})">Toggle</button>
-                        </li>
+                        <div class="relay-card {{ 'active' if rel.active else 'inactive' }}" id="relay-{{ loop.index0 }}" onclick="toggleRelay({{ loop.index0 }})">
+                            <div class="relay-name">{{ rel.name }}</div>
+                            <div class="relay-status">{{ 'ON' if rel.active else 'OFF' }}</div>
+                            <div class="relay-manual">(Manual - Click to toggle)</div>
+                        </div>
                     {% endfor %}
-                </ul>
-                <a href="/dashboard">Sensores</a> | <a href="/config">Configuración</a>
+                </div>
 
                 <script>
                     const socket = io();
@@ -350,8 +537,12 @@ class WebServer:
 
                     socket.on('relay_update', function(data) {
                         data.active.forEach((state, i) => {
-                            const el = document.getElementById('relay-status-' + i);
-                            if (el) el.textContent = state ? 'ON' : 'OFF';
+                            const card = document.getElementById('relay-' + i);
+                            if (card) {
+                                card.className = 'relay-card ' + (state ? 'active' : 'inactive');
+                                const statusDiv = card.querySelector('.relay-status');
+                                statusDiv.textContent = state ? 'ON' : 'OFF';
+                            }
                         });
                     });
 
@@ -370,11 +561,39 @@ class WebServer:
             return render_template_string('''
                 <!DOCTYPE html>
                 <html>
-                <head><title>Configuración</title></head>
+                <head><title>Configuración</title>
+                <style>
+                    body { font-family: Arial, sans-serif; background: #e9eef3; margin: 0; padding: 20px; }
+                    .header { background: #007acc; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+                    .nav-buttons { margin-top:12px; }
+                    .nav-buttons a { color:white; margin-right:8px; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+                    .nav-buttons a:hover { background: rgba(255,255,255,0.2); }
+                    .title { text-align: center; font-size: 24px; font-weight: bold; color: #007acc; margin-bottom: 20px; }
+                    table { border-collapse: collapse; width: 100%; max-width: 800px; margin: 0 auto 20px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+                    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+                    th { background: #f2f2f2; }
+                    input { width: 100%; padding: 8px; box-sizing: border-box; }
+                    button { background: #007acc; color: white; padding: 8px 12px; border: none; cursor: pointer; }
+                    button:hover { background: #005a99; }
+                    .section-title { font-size: 20px; font-weight: bold; color: #007acc; margin: 20px 0 10px; text-align: center; }
+                </style>
+                </head>
                 <body>
-                <h1>Configuración</h1>
-                <h2>Entradas</h2>
-                <table border="1" cellpadding="8" style="border-collapse:collapse;">
+                <div class="header">
+                    <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
+                    <div class="nav-buttons" style="margin-top:12px;">
+                        <a href="/pressure">Presión</a>
+                        <a href="/temperature">Temperatura</a>
+                        <a href="/relay">Relés</a>
+                        <a href="/config">Configuración</a>
+                        <a href="/history">Historial CSV</a>
+                        <a href="/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+                <div class="title">CONFIGURATION</div>
+
+                <div class="section-title">INPUT CONFIGURATION</div>
+                <table>
                     <tr><th>Sensor</th><th>Nombre</th><th>Min</th><th>Max</th><th>Acción</th></tr>
                     {% for key, cfg in inputs.items() %}
                     <tr>
@@ -387,8 +606,8 @@ class WebServer:
                     {% endfor %}
                 </table>
 
-                <h2>Relés</h2>
-                <table border="1" cellpadding="8" style="border-collapse:collapse; margin-top:12px;">
+                <div class="section-title">RELAY CONFIGURATION</div>
+                <table>
                     <tr><th>Relé</th><th>Nombre</th><th>Función</th><th>Canal</th><th>Setpoint</th><th>Acción</th></tr>
                     {% for key, cfg in relays.items() %}
                     <tr>
@@ -401,8 +620,6 @@ class WebServer:
                     </tr>
                     {% endfor %}
                 </table>
-
-                <p><a href="/dashboard">Sensores</a> | <a href="/relay">Relés</a> | <a href="/history">Historial CSV</a></p>
 
                 <script>
                 function showAlert(msg) { alert(msg); }
@@ -450,21 +667,45 @@ class WebServer:
             return render_template_string('''
                 <!DOCTYPE html>
                 <html>
-                <head><title>Historial CSV</title></head>
+                <head><title>Historial CSV</title>
+                <style>
+                    body { font-family: Arial, sans-serif; background: #e9eef3; margin: 0; padding: 20px; }
+                    .header { background: #007acc; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+                    .nav-buttons { margin-top:12px; }
+                    .nav-buttons a { color:white; margin-right:8px; text-decoration: none; padding: 8px 12px; background: rgba(255,255,255,0.1); border-radius: 4px; }
+                    .nav-buttons a:hover { background: rgba(255,255,255,0.2); }
+                    .title { text-align: center; font-size: 24px; font-weight: bold; color: #007acc; margin-bottom: 20px; }
+                    ul { list-style: none; padding: 0; max-width: 800px; margin: 0 auto; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); border-radius: 8px; }
+                    li { padding: 12px; border-bottom: 1px solid #ddd; }
+                    li:last-child { border-bottom: none; }
+                    a { color: #007acc; text-decoration: none; }
+                    a:hover { text-decoration: underline; }
+                </style>
+                </head>
                 <body>
-                <h1>Historial CSV</h1>
+                <div class="header">
+                    <h1>BlackBox K - Monitoreo en Tiempo Real</h1>
+                    <div class="nav-buttons" style="margin-top:12px;">
+                        <a href="/pressure">Presión</a>
+                        <a href="/temperature">Temperatura</a>
+                        <a href="/relay">Relés</a>
+                        <a href="/config">Configuración</a>
+                        <a href="/history">Historial CSV</a>
+                        <a href="/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+                <div class="title">CSV HISTORY</div>
                 <ul>
                 {% for f in files %}
-                    <li><a href="/history/{{ f }}">{{ f }}</a></li>
+                    <li><a href="/download_csv/{{ f }}">{{ f }}</a></li>
                 {% endfor %}
                 </ul>
-                <p><a href="/dashboard">Sensores</a> | <a href="/relay">Relés</a> | <a href="/config">Configuración</a></p>
                 </body>
                 </html>
             ''', files=files)
 
-        @self.app.route('/history/<path:filename>')
-        def history_download(filename):
+        @self.app.route('/download_csv/<path:filename>')
+        def download_csv(filename):
             export_dir = self.app_controller.get_export_status().get('path', 'exports')
             safe_name = os.path.basename(filename)
             return send_from_directory(export_dir, safe_name, as_attachment=True)
