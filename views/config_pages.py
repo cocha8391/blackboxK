@@ -309,6 +309,15 @@ def create_config_item_page(container: tk.Canvas, width: int, height: int, black
             min_entry.insert(0, str(cfg.get("min", 0)))
             max_entry.delete(0, tk.END)
             max_entry.insert(0, str(cfg.get("max", 100)))
+            
+            # Actualizar etiquetas según tipo de input
+            if blackboxk.current_config_subtype == 'pressure':
+                min_label.config(text="Min Pressure (PSI):")
+                max_label.config(text="Max Pressure (PSI):")
+            elif blackboxk.current_config_subtype == 'temperature':
+                min_label.config(text="Min Temperature (°C):")
+                max_label.config(text="Max Temperature (°C):")
+            
             # Mostrar campos input
             min_label.grid(row=1, column=0, sticky="e", padx=10, pady=5)
             min_entry.grid(row=1, column=1, padx=10, pady=5, sticky="w")

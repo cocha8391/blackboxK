@@ -90,6 +90,7 @@ class BlackBoxK:
         # ===== ITEMS DE CONFIGURACIÓN ACTUAL =====
         self.current_config_type = None  # 'input' o 'relay'
         self.current_config_key = None   # key para input, index para relay
+        self.current_config_subtype = None  # 'pressure', 'temperature' para inputs
 
         # ===== PÁGINAS =====
         self._setup_pages()
@@ -252,6 +253,11 @@ class BlackBoxK:
         """Selecciona input para configurar."""
         self.current_config_type = config_type
         self.current_config_key = key
+        # Determinar si es presión o temperatura
+        if key in PRESSURE_KEYS:
+            self.current_config_subtype = 'pressure'
+        elif key in TEMPERATURE_KEYS:
+            self.current_config_subtype = 'temperature'
         self.window.navigate_to_page(PAGE_CONFIG_ITEM)
 
     def _on_select_relay(self, config_type, index):
@@ -295,15 +301,18 @@ class BlackBoxK:
             logger.info("BlackBoxK", "Splash tocado → Página 1")
             return
 
-        # Swipe izquierda: siguiente página
-        if delta < -80:
-            if self.nav.on_swipe_left():
-                self.window.navigate_to_page(self.nav.get_current_page())
+        # Solo permitir swipe en páginas principales (0-3: splash, pressure, temperature, relay)
+        current_page = self.nav.get_current_page()
+        if current_page < PAGE_CONFIG_MENU:
+            # Swipe izquierda: siguiente página
+            if delta < -80:
+                if self.nav.on_swipe_left():
+                    self.window.navigate_to_page(self.nav.get_current_page())
 
-        # Swipe derecha: página anterior
-        elif delta > 80:
-            if self.nav.on_swipe_right():
-                self.window.navigate_to_page(self.nav.get_current_page())
+            # Swipe derecha: página anterior
+            elif delta > 80:
+                if self.nav.on_swipe_right():
+                    self.window.navigate_to_page(self.nav.get_current_page())
 
     def _open_config_menu(self) -> None:
         """Abre el menú de configuración."""
