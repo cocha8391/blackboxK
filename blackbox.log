@@ -15894,3 +15894,75 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 [2026-03-23 20:51:16] [DEBUG] [BlackBoxK] - [HardwareManager] Relés (simulado): 0x0f
 [2026-03-23 20:51:16] [INFO] [BlackBoxK] - [main] Aplicación interrumpida por usuario
 [2026-03-23 20:51:16] [INFO] [BlackBoxK] - [main] Aplicación terminada
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [BlackBoxK]    BLACK BOX K DASHBOARD - Iniciando...
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [AppController] Inicializando aplicación...
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [ConfigManager] Config cargada desde relay_config.json
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [ConfigManager] Configuración cargada exitosamente
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [SensorData] Sistema de sensores inicializado
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [HardwareManager] Modo SIMULACIÓN - Sin hardware real
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [SensorController] Inicializado
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [RelayController] Inicializado
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [AppController] Aplicación inicializada correctamente
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [NavigationController] Página inicial: 0
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [MainWindow] Ventana creada (1536x960)
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [BlackBoxK] Configurando páginas...
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'splash' añadido a página 0
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'pressure' añadido a página 1
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'temperature' añadido a página 2
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay' añadido a página 3
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'config_menu' añadido a página 4
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'input_config' añadido a página 5
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay_config' añadido a página 6
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'connectivity' añadido a página 7
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'info' añadido a página 8
+[2026-03-23 20:56:07] [DEBUG] [BlackBoxK] - [BlackBoxK] Páginas configuradas
+[2026-03-23 20:56:07] [ERROR] [BlackBoxK] - [main] Error fatal: 'BlackBoxK' object has no attribute '_on_touch_end'
+Traceback (most recent call last):
+  File "C:\Users\migue\projects\blackboxK\main.py", line 429, in main
+    app = BlackBoxK(use_simulation=True)
+  File "C:\Users\migue\projects\blackboxK\main.py", line 92, in __init__
+    self._setup_events()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\migue\projects\blackboxK\main.py", line 192, in _setup_events
+    self.window.bind_event("<ButtonRelease-1>", self._on_touch_end)
+                                                ^^^^^^^^^^^^^^^^^^
+AttributeError: 'BlackBoxK' object has no attribute '_on_touch_end'. Did you mean: '_on_touch_start'?
+[2026-03-23 20:56:07] [INFO] [BlackBoxK] - [main] Aplicación terminada
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [BlackBoxK]    BLACK BOX K DASHBOARD - Iniciando...
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [BlackBoxK] ════════════════════════════════════════════════════════════
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [AppController] Inicializando aplicación...
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [ConfigManager] Config cargada desde relay_config.json
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [ConfigManager] Configuración cargada exitosamente
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [SensorData] Sistema de sensores inicializado
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [HardwareManager] Modo SIMULACIÓN - Sin hardware real
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [SensorController] Inicializado
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [RelayController] Inicializado
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [AppController] Aplicación inicializada correctamente
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [NavigationController] Página inicial: 0
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [MainWindow] Ventana creada (1536x960)
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [BlackBoxK] Configurando páginas...
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'splash' añadido a página 0
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'pressure' añadido a página 1
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'temperature' añadido a página 2
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay' añadido a página 3
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'config_menu' añadido a página 4
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'input_config' añadido a página 5
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'relay_config' añadido a página 6
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'connectivity' añadido a página 7
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [MainWindow] Frame 'info' añadido a página 8
+[2026-03-23 20:56:16] [DEBUG] [BlackBoxK] - [BlackBoxK] Páginas configuradas
+[2026-03-23 20:56:16] [ERROR] [BlackBoxK] - [main] Error fatal: 'BlackBoxK' object has no attribute '_on_touch_end'
+Traceback (most recent call last):
+  File "C:\Users\migue\projects\blackboxK\main.py", line 429, in main
+    app = BlackBoxK(use_simulation=True)
+  File "C:\Users\migue\projects\blackboxK\main.py", line 92, in __init__
+    self._setup_events()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\migue\projects\blackboxK\main.py", line 192, in _setup_events
+    self.window.bind_event("<ButtonRelease-1>", self._on_touch_end)
+                                                ^^^^^^^^^^^^^^^^^^
+AttributeError: 'BlackBoxK' object has no attribute '_on_touch_end'. Did you mean: '_on_touch_start'?
+[2026-03-23 20:56:16] [INFO] [BlackBoxK] - [main] Aplicación terminada

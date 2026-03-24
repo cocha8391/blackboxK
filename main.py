@@ -232,6 +232,8 @@ class BlackBoxK:
     def _on_back_to_config_menu(self):
         """Vuelve al menú de configuración."""
         self.window.navigate_to_page(PAGE_CONFIG_MENU)
+
+    def _on_touch_end(self, event) -> None:
         """Maneja liberación de pantalla."""
         # Cancelar timer si estaba activo
         if self.hold_timer:
