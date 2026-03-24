@@ -23,24 +23,24 @@ class MainWindow:
         # Configurar ventana
         if FULLSCREEN_MODE:
             self.root.attributes("-fullscreen", True)
-            self.window_width = self.root.winfo_screenwidth()
-            self.window_height = self.root.winfo_screenheight()
+            self.page_width = self.root.winfo_screenwidth()
+            self.page_height = self.root.winfo_screenheight()
         else:
-            self.window_width = WINDOW_WIDTH
-            self.window_height = WINDOW_HEIGHT
-            self.root.geometry(f"{self.window_width}x{self.window_height}")
+            self.page_width = WINDOW_WIDTH
+            self.page_height = WINDOW_HEIGHT
+            self.root.geometry(f"{self.page_width}x{self.page_height}")
 
         # Canvas principal con desplazamiento
         self.container = tk.Canvas(
             self.root,
-            width=self.window_width,
-            height=self.window_height,
+            width=self.page_width,
+            height=self.page_height,
             highlightthickness=0,
         )
         self.container.pack(fill="both", expand=True)
-        self.container.configure(scrollregion=(0, 0, self.window_width * TOTAL_PAGES, self.window_height))
+        self.container.configure(scrollregion=(0, 0, self.page_width * TOTAL_PAGES, self.page_height))
 
-        logger.info("MainWindow", f"Ventana creada ({WINDOW_WIDTH}x{WINDOW_HEIGHT})")
+        logger.info("MainWindow", f"Ventana creada ({self.page_width}x{self.page_height})")
 
         # Diccionario para almacenar frames de páginas
         self.frames = {}
@@ -56,7 +56,7 @@ class MainWindow:
         """
         self.frames[frame_name] = frame
         self.container.create_window(
-            (WINDOW_WIDTH * page_index, 0),
+            (self.page_width * page_index, 0),
             window=frame,
             anchor="nw",
         )
@@ -72,6 +72,7 @@ class MainWindow:
         if page_index < 0 or page_index >= TOTAL_PAGES:
             return
 
+        # Normalizamos a porcentaje del scrollregion total (coincide con la anchura de página)
         scroll_x = page_index / TOTAL_PAGES
         self.container.xview_moveto(scroll_x)
         logger.debug("MainWindow", f"Navegando a página {page_index}")

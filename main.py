@@ -92,32 +92,32 @@ class BlackBoxK:
         # Página 0: Splash
         splash_frame = create_splash_page(
             self.window.container,
-            self.window.window_width,
-            self.window.window_height,
+            self.window.page_width,
+            self.window.page_height,
         )
         self.window.add_frame("splash", splash_frame, PAGE_SPLASH)
 
         # Página 1: Presión
         pressure_frame, self.pressure_cards = create_pressure_page(
             self.window.container,
-            self.window.window_width,
-            self.window.window_height,
+            self.window.page_width,
+            self.window.page_height,
         )
         self.window.add_frame("pressure", pressure_frame, PAGE_PRESSURE)
 
         # Página 2: Temperatura
         temperature_frame, self.temp_cards = create_temperature_page(
             self.window.container,
-            self.window.window_width,
-            self.window.window_height,
+            self.window.page_width,
+            self.window.page_height,
         )
         self.window.add_frame("temperature", temperature_frame, PAGE_TEMPERATURE)
 
         # Página 3: Relés
         relay_frame, self.relay_indicators = create_relay_page(
             self.window.container,
-            self.window.window_width,
-            self.window.window_height,
+            self.window.page_width,
+            self.window.page_height,
         )
         self.window.add_frame("relay", relay_frame, PAGE_RELAY)
 
@@ -138,7 +138,10 @@ class BlackBoxK:
         self.touch_start_x = event.x_root
 
         # Si toca esquina inferior derecha, inicia timer para configuración
-        if event.x > (800 * 0.88) and event.y > (480 * 0.79):
+        if (
+            event.x > (self.window.page_width * 0.88)
+            and event.y > (self.window.page_height * 0.79)
+        ):
             self.hold_timer = self.window.after(
                 HOLD_CONFIG_TIME, self._open_config_menu
             )

@@ -17,8 +17,8 @@ def create_splash_page(container: tk.Canvas, width: int, height: int) -> tk.Fram
 
     Args:
         container: Canvas contenedor
-        width: Ancho de la pantalla
-        height: Alto de la pantalla
+        width: Ancho de la página
+        height: Alto de la página
 
     Returns:
         tk.Frame: Frame de la página splash
