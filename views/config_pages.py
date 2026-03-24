@@ -13,6 +13,7 @@ from utils.constants import (
     TEMPERATURE_KEYS,
     RELAY_KEYS,
     NUM_RELAYS,
+    RELAY_FUNCTIONS,
 )
 
 
@@ -92,7 +93,7 @@ def create_config_menu_page(container: tk.Canvas, width: int, height: int, on_in
     return frame
 
 
-def create_input_config_page(container: tk.Canvas, width: int, height: int, app_controller, on_back) -> tk.Frame:
+def create_input_config_page(container: tk.Canvas, width: int, height: int, app_controller, on_select_input, on_back) -> tk.Frame:
     """
     Crea la página de configuración de inputs.
 
@@ -101,6 +102,7 @@ def create_input_config_page(container: tk.Canvas, width: int, height: int, app_
         width: Ancho de la página
         height: Alto de la página
         app_controller: Controlador de la app
+        on_select_input: Callback para seleccionar input (tipo, key)
         on_back: Callback para volver
 
     Returns:
@@ -131,7 +133,7 @@ def create_input_config_page(container: tk.Canvas, width: int, height: int, app_
             text=f"{key} - {name}",
             font=("Helvetica", 12),
             width=30,
-            command=lambda k=key: _open_input_config_dialog(frame, app_controller, k),
+            command=lambda k=key: on_select_input('input', k),
         ).pack(pady=5)
 
     # Botón back
@@ -145,7 +147,7 @@ def create_input_config_page(container: tk.Canvas, width: int, height: int, app_
     return frame
 
 
-def create_relay_config_page(container: tk.Canvas, width: int, height: int, app_controller, on_back) -> tk.Frame:
+def create_relay_config_page(container: tk.Canvas, width: int, height: int, app_controller, on_select_relay, on_back) -> tk.Frame:
     """
     Crea la página de configuración de relés.
 
@@ -154,6 +156,7 @@ def create_relay_config_page(container: tk.Canvas, width: int, height: int, app_
         width: Ancho de la página
         height: Alto de la página
         app_controller: Controlador de la app
+        on_select_relay: Callback para seleccionar relay (tipo, index)
         on_back: Callback para volver
 
     Returns:
@@ -184,7 +187,7 @@ def create_relay_config_page(container: tk.Canvas, width: int, height: int, app_
             text=f"Relay {i+1} - {name}",
             font=("Helvetica", 12),
             width=30,
-            command=lambda idx=i: _open_relay_config_dialog(frame, app_controller, idx),
+            command=lambda idx=i: on_select_relay('relay', idx),
         ).pack(pady=5)
 
     # Botón back
@@ -242,14 +245,16 @@ def create_connectivity_page(container: tk.Canvas, width: int, height: int, on_b
     return frame
 
 
-def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> tk.Frame:
+def create_config_item_page(container: tk.Canvas, width: int, height: int, blackboxk, on_save, on_back) -> tk.Frame:
     """
-    Crea la página de información.
+    Crea la página de configuración de un item específico (input o relay).
 
     Args:
         container: Canvas contenedor
         width: Ancho de la página
         height: Alto de la página
+        app_controller: Controlador de la app
+        on_save: Callback para guardar
         on_back: Callback para volver
 
     Returns:
@@ -258,49 +263,137 @@ def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> 
     frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_PAGE)
     frame.pack_propagate(False)
 
-    # Título
-    tk.Label(
+    # Título (se actualizará)
+    title_label = tk.Label(
         frame,
-        text="INFORMATION",
+        text="CONFIGURE ITEM",
         font=("Helvetica", 20, "bold"),
         bg=COLOR_BG_PAGE,
         fg=COLOR_PRIMARY,
-    ).pack(pady=20)
+    )
+    title_label.pack(pady=10)
 
-    # Contenido
-    info_text = """
-    Black Box K Dashboard
-    Version 1.0
-    By SIELECTRA
+    # Frame para campos
+    fields_frame = tk.Frame(frame, bg=COLOR_BG_PAGE)
+    fields_frame.pack(pady=20)
 
-    Hardware: Raspberry Pi with analog/digital modules
-    Software: Python 3.8+, Tkinter
-    """
-    tk.Label(
-        frame,
-        text=info_text,
-        font=("Helvetica", 12),
-        bg=COLOR_BG_PAGE,
-        justify="left",
-    ).pack(pady=50)
+    # Campos comunes
+    name_label = tk.Label(fields_frame, text="Name:", bg=COLOR_BG_PAGE)
+    name_label.grid(row=0, column=0, sticky="e", padx=10, pady=5)
+    name_entry = tk.Entry(fields_frame, width=30)
+    name_entry.grid(row=0, column=1, padx=10, pady=5)
 
-    # Botón back
+    # Campos específicos para input
+    min_label = tk.Label(fields_frame, text="Min:", bg=COLOR_BG_PAGE)
+    min_entry = tk.Entry(fields_frame, width=10)
+    max_label = tk.Label(fields_frame, text="Max:", bg=COLOR_BG_PAGE)
+    max_entry = tk.Entry(fields_frame, width=10)
+
+    # Campos específicos para relay
+    function_label = tk.Label(fields_frame, text="Function:", bg=COLOR_BG_PAGE)
+    function_var = tk.StringVar()
+    function_menu = tk.OptionMenu(fields_frame, function_var, *RELAY_FUNCTIONS)
+    channel_label = tk.Label(fields_frame, text="Channel:", bg=COLOR_BG_PAGE)
+    channel_var = tk.StringVar()
+    channel_menu = tk.OptionMenu(fields_frame, channel_var, *(PRESSURE_KEYS + TEMPERATURE_KEYS))
+    setpoint_label = tk.Label(fields_frame, text="Setpoint:", bg=COLOR_BG_PAGE)
+    setpoint_entry = tk.Entry(fields_frame, width=10)
+
+    def update_fields():
+        if blackboxk.current_config_type == 'input':
+            title_label.config(text=f"Configure Input {blackboxk.current_config_key}")
+            cfg = blackboxk.app.config.get_input(blackboxk.current_config_key)
+            name_entry.delete(0, tk.END)
+            name_entry.insert(0, cfg.get("name", blackboxk.current_config_key))
+            min_entry.delete(0, tk.END)
+            min_entry.insert(0, str(cfg.get("min", 0)))
+            max_entry.delete(0, tk.END)
+            max_entry.insert(0, str(cfg.get("max", 100)))
+            # Mostrar campos input
+            min_label.grid(row=1, column=0, sticky="e", padx=10, pady=5)
+            min_entry.grid(row=1, column=1, padx=10, pady=5, sticky="w")
+            max_label.grid(row=2, column=0, sticky="e", padx=10, pady=5)
+            max_entry.grid(row=2, column=1, padx=10, pady=5, sticky="w")
+            # Ocultar campos relay
+            function_label.grid_remove()
+            function_menu.grid_remove()
+            channel_label.grid_remove()
+            channel_menu.grid_remove()
+            setpoint_label.grid_remove()
+            setpoint_entry.grid_remove()
+        elif blackboxk.current_config_type == 'relay':
+            relay_key = RELAY_KEYS[blackboxk.current_config_key]
+            title_label.config(text=f"Configure Relay {blackboxk.current_config_key + 1}")
+            cfg = blackboxk.app.config.get_relay(relay_key)
+            name_entry.delete(0, tk.END)
+            name_entry.insert(0, cfg.get("name", f"Relay {blackboxk.current_config_key + 1}"))
+            function_var.set(cfg.get("function", "Pressure Max"))
+            channel_var.set(cfg.get("channel", "P1"))
+            setpoint_entry.delete(0, tk.END)
+            setpoint_entry.insert(0, str(cfg.get("setpoint", 0)))
+            # Ocultar campos input
+            min_label.grid_remove()
+            min_entry.grid_remove()
+            max_label.grid_remove()
+            max_entry.grid_remove()
+            # Mostrar campos relay
+            function_label.grid(row=1, column=0, sticky="e", padx=10, pady=5)
+            function_menu.grid(row=1, column=1, padx=10, pady=5, sticky="w")
+            channel_label.grid(row=2, column=0, sticky="e", padx=10, pady=5)
+            channel_menu.grid(row=2, column=1, padx=10, pady=5, sticky="w")
+            setpoint_label.grid(row=3, column=0, sticky="e", padx=10, pady=5)
+            setpoint_entry.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+
+    # Llamar update al crear
+    update_fields()
+
+    # Botones
+    buttons_frame = tk.Frame(frame, bg=COLOR_BG_PAGE)
+    buttons_frame.pack(pady=20)
+
     tk.Button(
-        frame,
-        text="Back to Menu",
+        buttons_frame,
+        text="Save",
+        font=("Helvetica", 14),
+        command=lambda: on_save(
+            name_entry.get(),
+            min_entry.get() if min_entry.winfo_ismapped() else None,
+            max_entry.get() if max_entry.winfo_ismapped() else None,
+            function_var.get() if function_var.get() else None,
+            channel_var.get() if channel_var.get() else None,
+            setpoint_entry.get() if setpoint_entry.winfo_ismapped() else None,
+        ),
+    ).pack(side="left", padx=10)
+
+    tk.Button(
+        buttons_frame,
+        text="Back",
         font=("Helvetica", 14),
         command=on_back,
-    ).pack(pady=20)
+    ).pack(side="left", padx=10)
+
+    # Almacenar referencias para actualizar
+    frame.title_label = title_label
+    frame.name_entry = name_entry
+    frame.min_label = min_label
+    frame.min_entry = min_entry
+    frame.max_label = max_label
+    frame.max_entry = max_entry
+    frame.function_label = function_label
+    frame.function_menu = function_menu
+    frame.channel_label = channel_label
+    frame.channel_menu = channel_menu
+    frame.setpoint_label = setpoint_label
+    frame.setpoint_entry = setpoint_entry
 
     return frame
 
 
 def _open_input_config_dialog(parent_frame, app_controller, key):
-    """Abre diálogo para configurar input (placeholder, integrar con existing)."""
-    # Placeholder: por ahora, solo print
-    print(f"Configure input {key}")
+    """Placeholder."""
+    pass
 
 
 def _open_relay_config_dialog(parent_frame, app_controller, relay_index):
-    """Abre diálogo para configurar relay (placeholder)."""
-    print(f"Configure relay {relay_index}")
+    """Placeholder."""
+    pass

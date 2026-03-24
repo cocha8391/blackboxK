@@ -33,6 +33,7 @@ from views.config_pages import (
     create_relay_config_page,
     create_connectivity_page,
     create_info_page,
+    create_config_item_page,
 )
 from views.config_dialogs import (
     show_config_menu,
@@ -49,6 +50,7 @@ from utils.constants import (
     PAGE_RELAY_CONFIG,
     PAGE_CONNECTIVITY,
     PAGE_INFO,
+    PAGE_CONFIG_ITEM,
     SENSOR_READ_INTERVAL,
     RELAY_EVAL_INTERVAL,
     HOLD_CONFIG_TIME,
@@ -84,6 +86,10 @@ class BlackBoxK:
 
         # ===== VISTA PRINCIPAL =====
         self.window = MainWindow()
+
+        # ===== ITEMS DE CONFIGURACIÓN ACTUAL =====
+        self.current_config_type = None  # 'input' o 'relay'
+        self.current_config_key = None   # key para input, index para relay
 
         # ===== PÁGINAS =====
         self._setup_pages()
@@ -152,6 +158,7 @@ class BlackBoxK:
             self.window.page_width,
             self.window.page_height,
             self.app,
+            self._on_select_input,
             self._on_back_to_config_menu,
         )
         self.window.add_frame("input_config", input_config_frame, PAGE_INPUT_CONFIG)
@@ -162,6 +169,7 @@ class BlackBoxK:
             self.window.page_width,
             self.window.page_height,
             self.app,
+            self._on_select_relay,
             self._on_back_to_config_menu,
         )
         self.window.add_frame("relay_config", relay_config_frame, PAGE_RELAY_CONFIG)
@@ -183,6 +191,17 @@ class BlackBoxK:
             self._on_back_to_config_menu,
         )
         self.window.add_frame("info", info_frame, PAGE_INFO)
+
+        # Página 9: Configuración de item específico
+        config_item_frame = create_config_item_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self,
+            self._on_save_config_item,
+            self._on_back_to_config_menu,
+        )
+        self.window.add_frame("config_item", config_item_frame, PAGE_CONFIG_ITEM)
 
         logger.debug("BlackBoxK", "Páginas configuradas")
 
@@ -228,6 +247,33 @@ class BlackBoxK:
     def _on_config_close(self):
         """Cierra el menú de configuración (vuelve a relay page)."""
         self.window.navigate_to_page(PAGE_RELAY)
+
+    def _on_select_input(self, config_type, key):
+        """Selecciona input para configurar."""
+        self.current_config_type = config_type
+        self.current_config_key = key
+        self.window.navigate_to_page(PAGE_CONFIG_ITEM)
+
+    def _on_select_relay(self, config_type, index):
+        """Selecciona relay para configurar."""
+        self.current_config_type = config_type
+        self.current_config_key = index
+        self.window.navigate_to_page(PAGE_CONFIG_ITEM)
+
+    def _on_save_config_item(self, name, min_val, max_val, function, channel, setpoint):
+        """Guarda la configuración del item."""
+        if self.current_config_type == 'input':
+            min_val = float(min_val) if min_val else 0
+            max_val = float(max_val) if max_val else 100
+            self.app.update_input_config(self.current_config_key, name, min_val, max_val)
+            logger.info("BlackBoxK", f"Input {self.current_config_key} actualizado")
+        elif self.current_config_type == 'relay':
+            relay_key = RELAY_KEYS[self.current_config_key]
+            setpoint = float(setpoint) if setpoint else 0
+            self.app.update_relay_config(relay_key, name, function, channel, setpoint)
+            logger.info("BlackBoxK", f"Relay {relay_key} actualizado")
+        # Volver al menú
+        self.window.navigate_to_page(PAGE_CONFIG_MENU)
 
     def _on_back_to_config_menu(self):
         """Vuelve al menú de configuración."""
