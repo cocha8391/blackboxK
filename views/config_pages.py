@@ -389,6 +389,59 @@ def create_config_item_page(container: tk.Canvas, width: int, height: int, black
     return frame
 
 
+def create_info_page(container: tk.Canvas, width: int, height: int, on_back) -> tk.Frame:
+    """
+    Crea la página de información.
+
+    Args:
+        container: Canvas contenedor
+        width: Ancho de la página
+        height: Alto de la página
+        on_back: Callback para volver
+
+    Returns:
+        tk.Frame: Frame de la página
+    """
+    frame = tk.Frame(container, width=width, height=height, bg=COLOR_BG_PAGE)
+    frame.pack_propagate(False)
+
+    # Título
+    tk.Label(
+        frame,
+        text="INFORMATION",
+        font=("Helvetica", 20, "bold"),
+        bg=COLOR_BG_PAGE,
+        fg=COLOR_PRIMARY,
+    ).pack(pady=20)
+
+    # Contenido
+    info_text = """
+    Black Box K Dashboard
+    Version 1.0
+    By SIELECTRA
+
+    Hardware: Raspberry Pi with analog/digital modules
+    Software: Python 3.8+, Tkinter
+    """
+    tk.Label(
+        frame,
+        text=info_text,
+        font=("Helvetica", 12),
+        bg=COLOR_BG_PAGE,
+        justify="left",
+    ).pack(pady=50)
+
+    # Botón back
+    tk.Button(
+        frame,
+        text="Back to Menu",
+        font=("Helvetica", 14),
+        command=on_back,
+    ).pack(pady=20)
+
+    return frame
+
+
 def _open_input_config_dialog(parent_frame, app_controller, key):
     """Placeholder."""
     pass
