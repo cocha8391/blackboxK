@@ -92,12 +92,22 @@ def create_pressure_page(container: tk.Canvas, width: int, height: int) -> tuple
 
     # Crear tarjetas
     cards = []
+    card_width = 300
+    card_height = 160
+    margin_x = 50
+    margin_y = 80
+    cols = 2
+    rows = (NUM_PRESSURE_SENSORS + cols - 1) // cols  # Ceiling division
+
+    total_width = cols * card_width + (cols - 1) * margin_x
+    start_x = (width - total_width) // 2
+    start_y = margin_y
+
     for i in range(NUM_PRESSURE_SENSORS):
         card = SensorCard(frame, f"P{i+1}", PRESSURE_UNIT)
-        card.place(
-            x=70 + (i % 2) * 360,
-            y=80 + (i // 2) * 210,
-        )
+        x = start_x + (i % cols) * (card_width + margin_x)
+        y = start_y + (i // cols) * (card_height + margin_y)
+        card.place(x=x, y=y)
         cards.append(card)
 
     return frame, cards
@@ -129,12 +139,22 @@ def create_temperature_page(container: tk.Canvas, width: int, height: int) -> tu
 
     # Crear tarjetas
     cards = []
+    card_width = 300
+    card_height = 160
+    margin_x = 50
+    margin_y = 80
+    cols = 2
+    rows = (NUM_TEMPERATURE_SENSORS + cols - 1) // cols
+
+    total_width = cols * card_width + (cols - 1) * margin_x
+    start_x = (width - total_width) // 2
+    start_y = margin_y
+
     for i in range(NUM_TEMPERATURE_SENSORS):
         card = SensorCard(frame, f"T{i+1}", TEMPERATURE_UNIT)
-        card.place(
-            x=70 + (i % 2) * 360,
-            y=80 + (i // 2) * 210,
-        )
+        x = start_x + (i % cols) * (card_width + margin_x)
+        y = start_y + (i // cols) * (card_height + margin_y)
+        card.place(x=x, y=y)
         cards.append(card)
 
     return frame, cards

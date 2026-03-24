@@ -27,6 +27,13 @@ from views.main_window import MainWindow
 from views.splash_page import create_splash_page
 from views.sensor_page import create_pressure_page, create_temperature_page
 from views.relay_page import create_relay_page
+from views.config_pages import (
+    create_config_menu_page,
+    create_input_config_page,
+    create_relay_config_page,
+    create_connectivity_page,
+    create_info_page,
+)
 from views.config_dialogs import (
     show_config_menu,
     show_input_config_dialog,
@@ -37,6 +44,11 @@ from utils.constants import (
     PAGE_PRESSURE,
     PAGE_TEMPERATURE,
     PAGE_RELAY,
+    PAGE_CONFIG_MENU,
+    PAGE_INPUT_CONFIG,
+    PAGE_RELAY_CONFIG,
+    PAGE_CONNECTIVITY,
+    PAGE_INFO,
     SENSOR_READ_INTERVAL,
     RELAY_EVAL_INTERVAL,
     HOLD_CONFIG_TIME,
@@ -121,6 +133,57 @@ class BlackBoxK:
         )
         self.window.add_frame("relay", relay_frame, PAGE_RELAY)
 
+        # Página 4: Menú de configuración
+        config_menu_frame = create_config_menu_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self._on_input_config,
+            self._on_relay_config,
+            self._on_connectivity,
+            self._on_info,
+            self._on_config_close,
+        )
+        self.window.add_frame("config_menu", config_menu_frame, PAGE_CONFIG_MENU)
+
+        # Página 5: Configuración de inputs
+        input_config_frame = create_input_config_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self.app,
+            self._on_back_to_config_menu,
+        )
+        self.window.add_frame("input_config", input_config_frame, PAGE_INPUT_CONFIG)
+
+        # Página 6: Configuración de relés
+        relay_config_frame = create_relay_config_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self.app,
+            self._on_back_to_config_menu,
+        )
+        self.window.add_frame("relay_config", relay_config_frame, PAGE_RELAY_CONFIG)
+
+        # Página 7: Conectividad
+        connectivity_frame = create_connectivity_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self._on_back_to_config_menu,
+        )
+        self.window.add_frame("connectivity", connectivity_frame, PAGE_CONNECTIVITY)
+
+        # Página 8: Información
+        info_frame = create_info_page(
+            self.window.container,
+            self.window.page_width,
+            self.window.page_height,
+            self._on_back_to_config_menu,
+        )
+        self.window.add_frame("info", info_frame, PAGE_INFO)
+
         logger.debug("BlackBoxK", "Páginas configuradas")
 
     def _setup_events(self) -> None:
@@ -146,7 +209,29 @@ class BlackBoxK:
                 HOLD_CONFIG_TIME, self._open_config_menu
             )
 
-    def _on_touch_end(self, event) -> None:
+    def _on_input_config(self):
+        """Navega a configuración de inputs."""
+        self.window.navigate_to_page(PAGE_INPUT_CONFIG)
+
+    def _on_relay_config(self):
+        """Navega a configuración de relés."""
+        self.window.navigate_to_page(PAGE_RELAY_CONFIG)
+
+    def _on_connectivity(self):
+        """Navega a conectividad."""
+        self.window.navigate_to_page(PAGE_CONNECTIVITY)
+
+    def _on_info(self):
+        """Navega a información."""
+        self.window.navigate_to_page(PAGE_INFO)
+
+    def _on_config_close(self):
+        """Cierra el menú de configuración (vuelve a relay page)."""
+        self.window.navigate_to_page(PAGE_RELAY)
+
+    def _on_back_to_config_menu(self):
+        """Vuelve al menú de configuración."""
+        self.window.navigate_to_page(PAGE_CONFIG_MENU)
         """Maneja liberación de pantalla."""
         # Cancelar timer si estaba activo
         if self.hold_timer:
@@ -175,18 +260,7 @@ class BlackBoxK:
     def _open_config_menu(self) -> None:
         """Abre el menú de configuración."""
         logger.info("BlackBoxK", "Abriendo menú de configuración")
-
-        def on_input_config():
-            self._show_input_selection_dialog()
-
-        def on_relay_config():
-            self._show_relay_selection_dialog()
-
-        show_config_menu(
-            self.window.root,
-            on_input_config,
-            on_relay_config,
-        )
+        self.window.navigate_to_page(PAGE_CONFIG_MENU)
 
     def _show_input_selection_dialog(self) -> None:
         """Muestra diálogo para seleccionar qué input configurar."""

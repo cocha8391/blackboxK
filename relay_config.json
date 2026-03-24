@@ -1,18 +1,70 @@
 {
     "inputs": {
-        "P1": {"name": "Pressure 1", "min": 0, "max": 232},
-        "P2": {"name": "Pressure 2", "min": 0, "max": 232},
-        "P3": {"name": "Pressure 3", "min": 0, "max": 232},
-        "P4": {"name": "Pressure 4", "min": 0, "max": 232},
-        "T1": {"name": "Temperature 1", "min": -10, "max": 100},
-        "T2": {"name": "Temperature 2", "min": -10, "max": 100},
-        "T3": {"name": "Temperature 3", "min": -10, "max": 100},
-        "T4": {"name": "Temperature 4", "min": -10, "max": 100}
+        "P1": {
+            "name": "Pressure 1",
+            "min": 0.0,
+            "max": 232.0
+        },
+        "P2": {
+            "name": "Pressure 2",
+            "min": 0,
+            "max": 232
+        },
+        "P3": {
+            "name": "Pressure 3",
+            "min": 0,
+            "max": 232
+        },
+        "P4": {
+            "name": "Pressure 4",
+            "min": 0,
+            "max": 232
+        },
+        "T1": {
+            "name": "Temperature 1",
+            "min": -10,
+            "max": 100
+        },
+        "T2": {
+            "name": "Temperature 2",
+            "min": -10,
+            "max": 100
+        },
+        "T3": {
+            "name": "Temperature 3",
+            "min": -10,
+            "max": 100
+        },
+        "T4": {
+            "name": "Temperature 4",
+            "min": -10,
+            "max": 100
+        }
     },
     "relays": {
-        "relay1": {"name": "Relay 1", "function": "Pressure Max", "channel": "P1", "setpoint": 0},
-        "relay2": {"name": "Relay 2", "function": "Pressure Max", "channel": "P2", "setpoint": 0},
-        "relay3": {"name": "Relay 3", "function": "Pressure Max", "channel": "P3", "setpoint": 0},
-        "relay4": {"name": "Relay 4", "function": "Pressure Max", "channel": "P4", "setpoint": 0}
+        "relay1": {
+            "name": "Relay 1",
+            "function": "Pressure Max",
+            "channel": "P1",
+            "setpoint": 0
+        },
+        "relay2": {
+            "name": "Relay 2",
+            "function": "Pressure Max",
+            "channel": "P2",
+            "setpoint": 0
+        },
+        "relay3": {
+            "name": "Relay 3",
+            "function": "Pressure Max",
+            "channel": "P3",
+            "setpoint": 0
+        },
+        "relay4": {
+            "name": "Relay 4",
+            "function": "Pressure Max",
+            "channel": "P4",
+            "setpoint": 0
+        }
     }
 }
