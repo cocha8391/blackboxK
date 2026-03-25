@@ -85,6 +85,7 @@ def show_input_config_dialog(
     entry_name.pack(pady=5)
     entry_name.insert(0, current_name)
     entry_name.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_name))
+    entry_name.bind("<Button-1>", lambda e: show_virtual_keyboard(entry_name))
 
     # Mínimo
     tk.Label(dialog, text="Min Value:", bg=COLOR_BG_DIALOG).pack()
@@ -92,6 +93,7 @@ def show_input_config_dialog(
     entry_min.pack(pady=5)
     entry_min.insert(0, str(current_min))
     entry_min.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_min))
+    entry_min.bind("<Button-1>", lambda e: show_virtual_keyboard(entry_min))
 
     # Máximo
     tk.Label(dialog, text="Max Value:", bg=COLOR_BG_DIALOG).pack()
@@ -99,6 +101,7 @@ def show_input_config_dialog(
     entry_max.pack(pady=5)
     entry_max.insert(0, str(current_max))
     entry_max.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_max))
+    entry_max.bind("<Button-1>", lambda e: show_virtual_keyboard(entry_max))
 
     # Etiqueta de error
     error_label = tk.Label(dialog, text="", fg="red", bg=COLOR_BG_DIALOG)
@@ -175,6 +178,7 @@ def show_relay_config_dialog(
     entry_name.pack(pady=5)
     entry_name.insert(0, current_name)
     entry_name.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_name))
+    entry_name.bind("<Button-1>", lambda e: show_virtual_keyboard(entry_name))
 
     # Función
     tk.Label(dialog, text="Function:", bg=COLOR_BG_DIALOG).pack()
@@ -195,6 +199,7 @@ def show_relay_config_dialog(
     entry_sp.pack(pady=5)
     entry_sp.insert(0, str(current_setpoint))
     entry_sp.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_sp))
+    entry_sp.bind("<Button-1>", lambda e: show_virtual_keyboard(entry_sp))
 
     # Etiqueta de error
     error_label = tk.Label(dialog, text="", fg="red", bg=COLOR_BG_DIALOG)
