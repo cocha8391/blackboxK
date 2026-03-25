@@ -17,6 +17,36 @@ from utils.constants import (
 )
 
 
+def show_virtual_keyboard(entry_widget):
+    """Muestra un teclado virtual simple para el Entry dado."""
+    import string
+    vk_win = tk.Toplevel(entry_widget)
+    vk_win.title("Teclado Virtual")
+    vk_win.geometry("600x250")
+    vk_win.grab_set()
+    
+    def insert_char(c):
+        entry_widget.insert(tk.END, c)
+    def backspace():
+        entry_widget.delete(len(entry_widget.get())-1, tk.END)
+    def close_vk():
+        vk_win.destroy()
+
+    chars = [
+        list("1234567890"),
+        list("qwertyuiop"),
+        list("asdfghjklñ"),
+        list("zxcvbnm.-_"),
+    ]
+    for row, row_chars in enumerate(chars):
+        for col, c in enumerate(row_chars):
+            b = tk.Button(vk_win, text=c, width=4, height=2, command=lambda ch=c: insert_char(ch))
+            b.grid(row=row, column=col, padx=2, pady=2)
+    # Espacio, borrar, ok
+    tk.Button(vk_win, text="ESPACIO", width=10, height=2, command=lambda: insert_char(" ")).grid(row=4, column=0, columnspan=3, padx=2, pady=2)
+    tk.Button(vk_win, text="BORRAR", width=10, height=2, command=backspace).grid(row=4, column=3, columnspan=3, padx=2, pady=2)
+    tk.Button(vk_win, text="OK", width=10, height=2, command=close_vk).grid(row=4, column=6, columnspan=3, padx=2, pady=2)
+
 def show_input_config_dialog(
     parent: tk.Tk,
     input_key: str,
@@ -54,18 +84,21 @@ def show_input_config_dialog(
     entry_name = tk.Entry(dialog, width=30)
     entry_name.pack(pady=5)
     entry_name.insert(0, current_name)
+    entry_name.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_name))
 
     # Mínimo
     tk.Label(dialog, text="Min Value:", bg=COLOR_BG_DIALOG).pack()
     entry_min = tk.Entry(dialog, width=30)
     entry_min.pack(pady=5)
     entry_min.insert(0, str(current_min))
+    entry_min.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_min))
 
     # Máximo
     tk.Label(dialog, text="Max Value:", bg=COLOR_BG_DIALOG).pack()
     entry_max = tk.Entry(dialog, width=30)
     entry_max.pack(pady=5)
     entry_max.insert(0, str(current_max))
+    entry_max.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_max))
 
     # Etiqueta de error
     error_label = tk.Label(dialog, text="", fg="red", bg=COLOR_BG_DIALOG)
@@ -141,6 +174,7 @@ def show_relay_config_dialog(
     entry_name = tk.Entry(dialog, width=30)
     entry_name.pack(pady=5)
     entry_name.insert(0, current_name)
+    entry_name.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_name))
 
     # Función
     tk.Label(dialog, text="Function:", bg=COLOR_BG_DIALOG).pack()
@@ -160,6 +194,7 @@ def show_relay_config_dialog(
     entry_sp = tk.Entry(dialog, width=30)
     entry_sp.pack(pady=5)
     entry_sp.insert(0, str(current_setpoint))
+    entry_sp.bind("<FocusIn>", lambda e: show_virtual_keyboard(entry_sp))
 
     # Etiqueta de error
     error_label = tk.Label(dialog, text="", fg="red", bg=COLOR_BG_DIALOG)
