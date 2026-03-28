@@ -20,6 +20,8 @@ USO:
     python main.py
 """
 
+import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 from controllers.app_controller import AppController
@@ -70,7 +72,7 @@ class BlackBoxK:
     Aplicación principal - orquesta modelo, controladores y vistas.
     """
 
-    def __init__(self, use_simulation: bool = True):
+    def __init__(self, use_simulation: bool = True, enable_gui: bool = True):
         """
         Inicializa la aplicación.
 
@@ -86,7 +88,9 @@ class BlackBoxK:
         self.nav = NavigationController()
 
         # ===== VISTA PRINCIPAL =====
-        self.window = MainWindow()
+        self.window = None
+        if enable_gui:
+            self.window = MainWindow()
 
         # ===== ITEMS DE CONFIGURACIÓN ACTUAL =====
         self.current_config_type = None  # 'input' o 'relay'
@@ -95,16 +99,16 @@ class BlackBoxK:
         self.config_item_frame = None  # Referencia al frame de config_item
 
         # ===== PÁGINAS =====
-        self._setup_pages()
-
-        # ===== EVENTOS =====
-        self._setup_events()
-
-        # ===== CICLOS PERIÓDICOS =====
-        self._schedule_sensor_read()
-        self._schedule_relay_eval()
-
-        logger.info("BlackBoxK", "Aplicación inicializada correctamente")
+        if self.window:
+            self._setup_pages()
+            # ===== EVENTOS =====
+            self._setup_events()
+            # ===== CICLOS PERIÓDICOS =====
+            self._schedule_sensor_read()
+            self._schedule_relay_eval()
+            logger.info("BlackBoxK", "Aplicación inicializada correctamente")
+        else:
+            logger.info("BlackBoxK", "Modo sin interfaz gráfica (headless)")
 
     def _setup_pages(self) -> None:
         """Crea y configura las páginas."""
@@ -574,9 +578,12 @@ class BlackBoxK:
                 self.relay_indicators[i].set_inactive(relay_name)
 
     def run(self) -> None:
-        """Inicia la aplicación (bloquea hasta cerrar)."""
-        logger.info("BlackBoxK", "Iniciando mainloop...")
-        self.window.run()
+        """Inicia la aplicación (bloquea hasta cerrar si hay GUI)."""
+        if self.window:
+            logger.info("BlackBoxK", "Iniciando mainloop...")
+            self.window.run()
+        else:
+            logger.info("BlackBoxK", "No hay interfaz gráfica para ejecutar mainloop.")
 
     def shutdown(self) -> None:
         """Limpia recursos y cierra la aplicación."""
@@ -603,4 +610,23 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+    def main():
+        """Punto de entrada principal."""
+        try:
+            # Detectar si hay entorno gráfico disponible
+            enable_gui = True
+            if sys.platform.startswith("linux") or sys.platform == "darwin":
+                if not os.environ.get("DISPLAY"):
+                    enable_gui = False
+            # use_simulation=True para Windows, False para Raspberry Pi con hardware real
+            app = BlackBoxK(use_simulation=True, enable_gui=enable_gui)
+            app.run()
+
+        except KeyboardInterrupt:
+            logger.info("main", "Aplicación interrumpida por usuario")
+
+        except Exception as e:
+            logger.error("main", f"Error fatal: {e}", exception=e)
+        finally:
+            logger.info("main", "Aplicación terminada")
